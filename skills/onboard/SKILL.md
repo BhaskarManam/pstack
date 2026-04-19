@@ -1,4 +1,5 @@
 ---
+name: onboard
 description: "First-time pstack setup. Seeds ~/.config/pstack/user-profile.yaml with your purpose, ikigai, values, and customer archetypes. Run once; update anytime."
 user-invocable: true
 model: claude-sonnet-4-6
