@@ -1,0 +1,51 @@
+# challenge.schema.yaml — JSON Schema (YAML format) for pstack challenge seed entries
+# Every entry in knowledge/challenges/<lens>.yaml must validate against this schema.
+
+$schema: "https://json-schema.org/draft/2020-12"
+title: "pstack challenge seed"
+description: "A single CEO/CPO-level provocation in the challenge bank"
+type: object
+required:
+  - id
+  - lens
+  - prompt
+  - why_it_matters
+  - expected_action
+
+properties:
+  id:
+    type: string
+    pattern: "^[a-z]+-\\d{3}$"
+    description: "Unique ID — format <lens>-<NNN> (e.g. strategy-001)"
+
+  lens:
+    type: string
+    enum: [strategy, customer, revenue, talent-org, priorities, reflection]
+
+  prompt:
+    type: string
+    minLength: 20
+    description: "The provocation. Must reference a specific artifact section or measurable claim — no generic questions."
+
+  why_it_matters:
+    type: string
+    minLength: 20
+    description: "One paragraph on why this question matters for founders/PMs right now"
+
+  expected_action:
+    type: string
+    minLength: 10
+    description: "What the user is expected to do after sitting with this challenge"
+
+  artifact_hooks:
+    type: array
+    items:
+      type: string
+      enum: [vision, prd, design-brief]
+    description: "Which artifact types this challenge is especially relevant for (optional)"
+
+  anti_repeat_group:
+    type: string
+    description: "Challenges in the same group won't fire consecutively (optional)"
+
+additionalProperties: false

@@ -1,0 +1,40 @@
+#!/bin/sh
+# publish-docs — strips <!-- private:start --> … <!-- private:end --> blocks
+# from CONVERSATIONS.md and writes the clean version to CONVERSATIONS.public.md
+#
+# Usage: ./publish-docs [--check]
+#   --check   exit 1 if CONVERSATIONS.md contains private blocks (use in CI)
+
+set -e
+
+SRC="CONVERSATIONS.md"
+OUT="CONVERSATIONS.public.md"
+
+if [ ! -f "$SRC" ]; then
+  printf 'publish-docs: %s not found — nothing to publish\n' "$SRC"
+  exit 0
+fi
+
+if [ "$1" = "--check" ]; then
+  if grep -q "<!-- private:start -->" "$SRC"; then
+    printf 'ERROR: %s contains <!-- private:start --> blocks.\n' "$SRC"
+    printf 'Run ./publish-docs to generate %s before committing.\n' "$OUT"
+    exit 1
+  fi
+  printf 'OK: no private blocks found in %s\n' "$SRC"
+  exit 0
+fi
+
+# Strip private blocks
+awk '
+  /<!-- private:start -->/ { inside=1; next }
+  /<!-- private:end -->/   { inside=0; next }
+  !inside                  { print }
+' "$SRC" > "$OUT"
+
+# Count what was stripped
+private_count=$(grep -c "<!-- private:start -->" "$SRC" 2>/dev/null || echo 0)
+
+printf 'publish-docs: wrote %s\n' "$OUT"
+printf '  Stripped %d private block(s) from %s\n' "$private_count" "$SRC"
+printf '  Review %s before committing.\n' "$OUT"

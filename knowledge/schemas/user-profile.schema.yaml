@@ -1,0 +1,67 @@
+# user-profile.schema.yaml — JSON Schema (YAML format) for ~/.config/pstack/user-profile.yaml
+# Seeded by /onboard. Read by /challenge and persona reviews for personalization.
+
+$schema: "https://json-schema.org/draft/2020-12"
+title: "pstack user profile"
+description: "Global user identity — persists across all projects"
+type: object
+required:
+  - schema_version
+
+properties:
+  schema_version:
+    type: string
+    pattern: "^\\d+\\.\\d+$"
+
+  name:
+    type: string
+
+  role:
+    type: string
+    description: "e.g. 'Founder', 'PM', 'CPO', 'Indie builder'"
+
+  purpose_statement:
+    type: string
+    description: "One sentence: what you are here to build and why"
+
+  ikigai:
+    type: object
+    properties:
+      love:
+        type: array
+        items: { type: string }
+        description: "Things you love doing"
+      good_at:
+        type: array
+        items: { type: string }
+        description: "Things you are genuinely skilled at"
+      world_needs:
+        type: array
+        items: { type: string }
+        description: "Problems the world needs solved that you care about"
+      paid_for:
+        type: array
+        items: { type: string }
+        description: "Things people will pay you for"
+
+  values:
+    type: array
+    items: { type: string }
+    description: "Non-negotiable values (used by /bhaskar-review and /challenge)"
+
+  customer_archetypes:
+    type: array
+    items: { type: string }
+    description: "The types of users you most often build for"
+
+  current_focus_slugs:
+    type: array
+    items: { type: string }
+    description: "pstack-workspace slugs for active projects"
+
+  updated:
+    type: string
+    format: date
+    description: "Last time this profile was updated (YYYY-MM-DD)"
+
+additionalProperties: false

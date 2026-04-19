@@ -1,0 +1,259 @@
+#!/bin/sh
+# pstack setup — installs pstack skills, patches CLAUDE.md, seeds ~/.config/pstack/
+# Usage: ./setup [--uninstall] [--skip-symlinks] [--daily-challenge]
+# Idempotent: safe to re-run; upgrades CLAUDE.md blocks in place.
+
+set -e
+
+PSTACK_DIR="$(cd "$(dirname "$0")" && pwd)"
+CLAUDE_SKILLS_DIR="$HOME/.claude/skills"
+CLAUDE_MD="$HOME/.claude/CLAUDE.md"
+PSTACK_CONFIG_DIR="$HOME/.config/pstack"
+SNIPPET="$PSTACK_DIR/CLAUDE.md.snippet"
+VERSION="v0.1"
+
+SKILLS="vision prd design-brief critique cagan-review shreyas-review lenny-review bhaskar-review challenge onboard pstack-status pstack-upgrade pstack-help pstack-learn"
+
+# ── Helpers ────────────────────────────────────────────────────────────────
+
+print_header() { printf '\n\033[1;34m%s\033[0m\n' "$1"; }
+print_ok()     { printf '  \033[0;32m✓\033[0m %s\n' "$1"; }
+print_warn()   { printf '  \033[0;33m⚠\033[0m %s\n' "$1"; }
+print_err()    { printf '  \033[0;31m✗\033[0m %s\n' "$1" >&2; }
+confirm()      { printf '  %s [y/N] ' "$1"; read -r ans; [ "$ans" = "y" ] || [ "$ans" = "Y" ]; }
+
+# Replace a versioned block between markers in a file.
+# Usage: patch_block FILE MARKER_ID VERSION CONTENT_FILE
+patch_block() {
+  local file="$1" marker="$2" ver="$3" content="$4"
+  local start="<!-- ${marker}:start ${ver} -->"
+  local end="<!-- ${marker}:end ${ver} -->"
+
+  mkdir -p "$(dirname "$file")"
+  touch "$file"
+
+  if grep -q "<!-- ${marker}:start" "$file" 2>/dev/null; then
+    # Block exists — replace everything between start and end markers
+    local tmp
+    tmp="$(mktemp)"
+    awk -v s="$start" -v e="$end" -v cf="$content" '
+      BEGIN { inside=0; printed=0 }
+      $0 == s { inside=1; printed=0; print; while ((getline line < cf) > 0) print line; close(cf); print e; next }
+      $0 == e { inside=0; next }
+      !inside  { print }
+    ' "$file" > "$tmp"
+    mv "$tmp" "$file"
+    print_ok "Updated ${marker} block in $file"
+  else
+    # Append block
+    printf '\n' >> "$file"
+    cat "$content" >> "$file"
+    print_ok "Added ${marker} block to $file"
+  fi
+}
+
+# ── Uninstall ───────────────────────────────────────────────────────────────
+
+uninstall() {
+  print_header "Uninstalling pstack"
+
+  for skill in $SKILLS; do
+    target="$CLAUDE_SKILLS_DIR/$skill"
+    if [ -L "$target" ]; then
+      rm "$target"
+      print_ok "Removed symlink: $target"
+    fi
+  done
+
+  if [ -f "$CLAUDE_MD" ]; then
+    for marker in "pstack-user" "pstack"; do
+      if grep -q "<!-- ${marker}:start" "$CLAUDE_MD"; then
+        tmp="$(mktemp)"
+        awk -v m="$marker" '
+          /<!-- [a-z:-]+:start / && index($0, "<!-- " m ":start") { inside=1; next }
+          inside && /<!-- [a-z:-]+:end /  && index($0, "<!-- " m ":end")  { inside=0; next }
+          !inside { print }
+        ' "$CLAUDE_MD" > "$tmp"
+        mv "$tmp" "$CLAUDE_MD"
+        print_ok "Removed ${marker} block from $CLAUDE_MD"
+      fi
+    done
+  fi
+
+  print_ok "Uninstall complete. ~/.config/pstack/ preserved."
+  exit 0
+}
+
+# ── Parse flags ─────────────────────────────────────────────────────────────
+
+SKIP_SYMLINKS=0
+DAILY_CHALLENGE=0
+
+for arg in "$@"; do
+  case "$arg" in
+    --uninstall)      uninstall ;;
+    --skip-symlinks)  SKIP_SYMLINKS=1 ;;
+    --daily-challenge) DAILY_CHALLENGE=1 ;;
+  esac
+done
+
+# ── Detect plugin mode ───────────────────────────────────────────────────────
+
+print_header "pstack setup ${VERSION}"
+
+PLUGIN_ACTIVE=0
+if [ -d "$HOME/.claude/plugins/pstack" ] || \
+   grep -q "plugin-dir.*pstack\|pstack.*plugin-dir" "$HOME/.claude/settings.json" 2>/dev/null; then
+  PLUGIN_ACTIVE=1
+  print_warn "pstack is also loaded as a .claude-plugin."
+  print_warn "You'll see flat (/vision) AND namespaced (/pstack:vision) commands."
+  if [ "$SKIP_SYMLINKS" -eq 0 ]; then
+    if confirm "Skip creating symlinks to avoid duplicates?"; then
+      SKIP_SYMLINKS=1
+    fi
+  fi
+fi
+
+# ── Symlink skills ───────────────────────────────────────────────────────────
+
+if [ "$SKIP_SYMLINKS" -eq 0 ]; then
+  print_header "Installing skill symlinks → $CLAUDE_SKILLS_DIR"
+  mkdir -p "$CLAUDE_SKILLS_DIR"
+
+  for skill in $SKILLS; do
+    src="$PSTACK_DIR/skills/$skill"
+    target="$CLAUDE_SKILLS_DIR/$skill"
+
+    if [ ! -d "$src" ]; then
+      print_warn "Skill directory not found (will exist after Phase build): $src"
+      continue
+    fi
+
+    if [ -L "$target" ]; then
+      # Update symlink
+      rm "$target"
+      ln -s "$src" "$target"
+      print_ok "Updated: $target → $src"
+    elif [ -e "$target" ]; then
+      print_err "CONFLICT: $target exists and is not a pstack symlink. Skipping."
+      print_err "  Move or rename $target before running setup again."
+    else
+      ln -s "$src" "$target"
+      print_ok "Linked: $target → $src"
+    fi
+  done
+fi
+
+# ── Patch ~/.claude/CLAUDE.md ────────────────────────────────────────────────
+
+print_header "Patching $CLAUDE_MD"
+
+# Extract the two blocks from the snippet file into temp files
+tmp_user="$(mktemp)"
+tmp_pstack="$(mktemp)"
+
+awk '/<!-- pstack-user:start/,/<!-- pstack-user:end/' "$SNIPPET" > "$tmp_user"
+awk '/<!-- pstack:start/,/<!-- pstack:end/' "$SNIPPET" > "$tmp_pstack"
+
+patch_block "$CLAUDE_MD" "pstack-user" "$VERSION" "$tmp_user"
+patch_block "$CLAUDE_MD" "pstack"      "$VERSION" "$tmp_pstack"
+
+rm -f "$tmp_user" "$tmp_pstack"
+
+# ── Seed ~/.config/pstack/ ───────────────────────────────────────────────────
+
+print_header "Setting up $PSTACK_CONFIG_DIR"
+mkdir -p "$PSTACK_CONFIG_DIR"
+
+if [ ! -f "$PSTACK_CONFIG_DIR/user-profile.yaml" ]; then
+  cat > "$PSTACK_CONFIG_DIR/user-profile.yaml" << 'EOF'
+# pstack user profile
+# Run /onboard to fill this in. Used by /challenge and persona reviews.
+schema_version: "0.1"
+name: ""
+role: ""
+purpose_statement: ""
+ikigai:
+  love: []
+  good_at: []
+  world_needs: []
+  paid_for: []
+values: []
+customer_archetypes: []
+current_focus_slugs: []
+updated: ""
+EOF
+  print_ok "Created $PSTACK_CONFIG_DIR/user-profile.yaml (run /onboard to fill)"
+else
+  print_ok "user-profile.yaml already exists — skipping"
+fi
+
+if [ ! -f "$PSTACK_CONFIG_DIR/last-session.md" ]; then
+  printf '# Last pstack session\n\nNo session recorded yet. Run /onboard then /vision to begin.\n' \
+    > "$PSTACK_CONFIG_DIR/last-session.md"
+  print_ok "Created last-session.md"
+fi
+
+if [ ! -f "$PSTACK_CONFIG_DIR/quality-log.yaml" ]; then
+  printf '# pstack quality log\n# Appended by every generator skill run\nentries: []\n' \
+    > "$PSTACK_CONFIG_DIR/quality-log.yaml"
+  print_ok "Created quality-log.yaml"
+fi
+
+# ── Add .gitignore rules to cwd ──────────────────────────────────────────────
+
+CWD_GITIGNORE=".gitignore"
+if [ "$(pwd)" != "$PSTACK_DIR" ] && [ -d ".git" ]; then
+  print_header "Project gitignore rules"
+
+  GITIGNORE_MARKER="# pstack"
+  if ! grep -q "$GITIGNORE_MARKER" "$CWD_GITIGNORE" 2>/dev/null; then
+    printf '\n%s\npstack-workspace/*/CHALLENGES.md\n' "$GITIGNORE_MARKER" >> "$CWD_GITIGNORE"
+    print_ok "Added pstack rules to $CWD_GITIGNORE"
+  else
+    print_ok ".gitignore already has pstack rules"
+  fi
+fi
+
+# ── Project-scoped CLAUDE.md ─────────────────────────────────────────────────
+
+if [ "$(pwd)" != "$PSTACK_DIR" ]; then
+  print_header "Project install"
+  if confirm "Add pstack commands to ./CLAUDE.md so teammates get them?"; then
+    tmp_pstack="$(mktemp)"
+    awk '/<!-- pstack:start/,/<!-- pstack:end/' "$SNIPPET" > "$tmp_pstack"
+    patch_block "CLAUDE.md" "pstack" "$VERSION" "$tmp_pstack"
+    rm -f "$tmp_pstack"
+    print_ok "pstack block added to ./CLAUDE.md"
+  fi
+fi
+
+# ── Daily challenge scheduling ────────────────────────────────────────────────
+
+if [ "$DAILY_CHALLENGE" -eq 1 ] || confirm "Schedule daily /challenge via Claude Code scheduled tasks?"; then
+  print_header "Scheduling /challenge"
+  print_warn "Open Claude Code and run: /schedule"
+  print_warn "Set prompt: /challenge"
+  print_warn "Set cadence: daily at your preferred time"
+  print_warn "(MCP scheduled-tasks integration — configure via Claude Code UI)"
+fi
+
+# ── Summary ───────────────────────────────────────────────────────────────────
+
+print_header "pstack ${VERSION} installed"
+printf '\n  Commands available:\n'
+printf '    /onboard         seed your user profile\n'
+printf '    /vision          product vision doc\n'
+printf '    /prd             rigorous PRD\n'
+printf '    /design-brief    design brief\n'
+printf '    /critique        rubric-based review\n'
+printf '    /cagan-review    Marty Cagan lens\n'
+printf '    /shreyas-review  Shreyas Doshi lens\n'
+printf '    /lenny-review    Lenny Rachitsky lens\n'
+printf '    /bhaskar-review  heart-centric ikigai lens\n'
+printf '    /challenge       daily CEO/CPO provocation\n'
+printf '    /pstack-help     what to do next\n'
+printf '    /pstack-status   project dashboard\n'
+printf '    /pstack-upgrade  pull updates\n'
+printf '    /pstack-learn    self-improvement from feedback\n'
+printf '\n  Start here → /onboard\n\n'

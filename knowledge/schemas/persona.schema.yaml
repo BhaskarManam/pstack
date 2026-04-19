@@ -1,0 +1,89 @@
+# persona.schema.yaml — JSON Schema (YAML format) for pstack persona files
+# Every skills/<name>-review/persona.yaml must validate against this schema.
+#
+# To validate: use any JSON Schema validator (ajv, jsonschema, yq + custom check)
+# Required: name, slug, one_liner, lens, signature_questions, common_flags, voice, source_links
+
+$schema: "https://json-schema.org/draft/2020-12"
+title: "pstack persona"
+description: "A product-leader persona used by pstack reviewer skills"
+type: object
+required:
+  - name
+  - slug
+  - one_liner
+  - lens
+  - signature_questions
+  - common_flags
+  - voice
+  - source_links
+
+properties:
+  name:
+    type: string
+    minLength: 1
+    description: "Full name of the persona (e.g. 'Marty Cagan')"
+
+  slug:
+    type: string
+    pattern: "^[a-z0-9-]+$"
+    description: "URL-safe identifier used in skill directory name (e.g. 'cagan')"
+
+  one_liner:
+    type: string
+    minLength: 10
+    description: "One sentence capturing this persona's core philosophy"
+
+  lens:
+    type: array
+    minItems: 2
+    maxItems: 8
+    items:
+      type: string
+      minLength: 5
+    description: "Key principles or lenses this persona applies when reviewing"
+
+  signature_questions:
+    type: array
+    minItems: 3
+    maxItems: 8
+    items:
+      type: string
+      minLength: 10
+    description: "Questions this persona characteristically asks when reviewing product work"
+
+  common_flags:
+    type: array
+    minItems: 2
+    maxItems: 8
+    items:
+      type: string
+      minLength: 5
+    description: "Common failure modes or anti-patterns this persona reliably surfaces"
+
+  voice:
+    type: object
+    required: [tone, opener_template]
+    properties:
+      tone:
+        type: string
+        description: "Adjectives describing how this persona sounds (e.g. 'calm, experienced')"
+      opener_template:
+        type: string
+        description: "How this persona typically opens a critique (with placeholder '...')"
+
+  source_links:
+    type: array
+    minItems: 1
+    items:
+      type: object
+      required: [title]
+      properties:
+        title:
+          type: string
+        url:
+          type: string
+          format: uri
+    description: "Published sources that ground this persona's lens"
+
+additionalProperties: false

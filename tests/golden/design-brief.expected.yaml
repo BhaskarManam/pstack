@@ -1,0 +1,23 @@
+# Shape contract for /design-brief output
+
+artifact_type: design-brief
+
+required_sections:
+  - "User & job"
+  - "Primary flow"
+  - "Screen inventory"
+  - "Interaction principles"
+  - "Accessibility"
+
+min_word_count: 350
+
+must_reference:
+  - "JTBD"
+
+rubric_floor_score: 3.5
+
+meta_checks:
+  - state_after: "BRIEF_DONE"
+  - precondition_state: "PRD_DONE"
+  - artifact_entry_present: true
+  - rubric_score_recorded: true

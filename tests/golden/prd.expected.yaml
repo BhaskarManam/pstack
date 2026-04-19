@@ -1,0 +1,27 @@
+# Shape contract for /prd output
+
+artifact_type: prd
+
+required_sections:
+  - "Context"
+  - "Hypothesis"
+  - "User stories"
+  - "Acceptance criteria"
+  - "Scope"
+  - "Success metrics"
+  - "Risks"
+  - "Open questions"
+
+min_word_count: 500
+
+must_reference:
+  - "cagan"
+  - "four risks"
+
+rubric_floor_score: 3.5
+
+meta_checks:
+  - state_after: "PRD_DONE"
+  - precondition_state: "VISION_DONE"
+  - artifact_entry_present: true
+  - rubric_score_recorded: true

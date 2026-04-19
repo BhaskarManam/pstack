@@ -1,0 +1,38 @@
+<!-- pstack-user:start v0.1 -->
+## About me
+
+- Working style: push back on my assumptions; propose advanced thinking; future-proof solutions; quality before speed; build one thing at a time.
+- Non-negotiables: ikigai-aligned products; heart-centric thinking; attribution to framework originators always.
+- On any pstack session: read ~/.config/pstack/last-session.md before suggesting next steps; run /pstack-help to surface the right next action.
+<!-- pstack-user:end v0.1 -->
+
+<!-- pstack:start v0.1 -->
+## pstack
+
+Use pstack skills for product-management work — vision, PRDs, design briefs, persona-driven reviews, CEO/CPO challenges, and self-improvement workflows.
+
+**Available commands:**
+- /vision — create or refine a product vision doc
+- /prd — draft a rigorous PRD grounded in the vision
+- /design-brief — produce a design brief from a PRD
+- /critique — score any artifact against its rubric; list gaps
+- /cagan-review — Marty Cagan's lens (four risks, outcomes > output)
+- /shreyas-review — Shreyas Doshi's lens (LNO, high agency, execution quality)
+- /lenny-review — Lenny Rachitsky's lens (growth loops, activation, retention)
+- /bhaskar-review — heart-centric, purpose-led, ikigai-anchored lens
+- /challenge — CEO/CPO-level provocation grounded in current project (daily)
+- /onboard — seed ~/.config/pstack/user-profile.yaml for cross-project personalization
+- /pstack-status — dashboard across all projects (rubric scores, staleness, last challenge)
+- /pstack-upgrade — pull latest pstack + re-run setup + diff new skills
+- /pstack-help — context-aware next-action recommendation (reads last-session.md)
+- /pstack-learn — distill feedback logs + user edits into framework improvement proposals
+
+**Conventions:**
+- Generators (/vision, /prd, /design-brief) run an internal draft→critique→revise loop before surfacing output. User sees only post-revision work.
+- Generators write to ./pstack-workspace/<slug>/ with numbered filenames: 00-vision.md, 02-prd.md, 03-design-brief.md.
+- Each generator reads prior artifacts and knowledge/INDEX.md before interviewing — never starts cold.
+- Reviewers write to pstack-workspace/<slug>/reviews/ — they never mutate source artifacts.
+- /challenge appends to pstack-workspace/<slug>/CHALLENGES.md (gitignored by default).
+- /pstack-help reads ~/.config/pstack/last-session.md — always run it when resuming a session.
+- Attribution footers mandatory on all output that cites frameworks or personas.
+<!-- pstack:end v0.1 -->

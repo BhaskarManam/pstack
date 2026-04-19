@@ -1,0 +1,28 @@
+# pstack — gitignore
+
+# Private conversation log (use publish-docs to generate the public version)
+CONVERSATIONS.md
+
+# Per-project challenge logs (user's strategic reflections — opt-in commit)
+pstack-workspace/*/CHALLENGES.md
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Dependency artifacts
+node_modules/
+__pycache__/
+*.pyc
+
+# Local env
+.env
+.env.local

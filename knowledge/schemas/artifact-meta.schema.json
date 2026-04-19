@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "pstack artifact meta",
+  "description": "Schema for pstack-workspace/<slug>/.pstack-meta.json — tracks project state and artifact history",
+  "type": "object",
+  "required": ["pstack_version", "artifact_schema_version", "project", "state_machine", "artifacts"],
+  "properties": {
+    "pstack_version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "description": "pstack version that last wrote this file (semver)"
+    },
+    "artifact_schema_version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+$"
+    },
+    "project": {
+      "type": "object",
+      "required": ["name", "slug", "state", "created"],
+      "properties": {
+        "name":    { "type": "string" },
+        "slug":    { "type": "string", "pattern": "^[a-z0-9-]+$" },
+        "state": {
+          "type": "string",
+          "enum": ["DRAFT_VISION", "VISION_DONE", "DRAFT_PRD", "PRD_DONE", "DRAFT_BRIEF", "BRIEF_DONE"]
+        },
+        "created": { "type": "string", "format": "date-time" }
+      }
+    },
+    "state_machine": {
+      "type": "object",
+      "description": "Human-readable descriptions of each state",
+      "additionalProperties": { "type": "string" }
+    },
+    "artifacts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["type", "path", "skill_version", "created"],
+        "properties": {
+          "type":          { "type": "string", "enum": ["vision", "prd", "design-brief"] },
+          "path":          { "type": "string" },
+          "skill_version": { "type": "string" },
+          "created":       { "type": "string", "format": "date-time" },
+          "rubric_score":  { "type": "number", "minimum": 1, "maximum": 5 },
+          "reviewed_by":   { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}
