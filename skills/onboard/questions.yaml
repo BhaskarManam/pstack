@@ -1,0 +1,52 @@
+# onboard/questions.yaml — the 7 questions /onboard asks to seed user-profile.yaml
+# Ordered: most identity-defining first, most operational last.
+
+questions:
+  - id: name
+    prompt: "What's your name?"
+    field: name
+    type: string
+
+  - id: role
+    prompt: "How do you describe your role? (e.g. Founder, PM, Indie builder, CPO)"
+    field: role
+    type: string
+
+  - id: purpose
+    prompt: |
+      In one sentence: what are you here to build, and why does it matter to you?
+      (This becomes your purpose statement — the soul of your work in pstack.)
+    field: purpose_statement
+    type: string
+
+  - id: ikigai
+    prompt: |
+      Let's map your ikigai — the four circles of meaningful work:
+        1. What do you LOVE doing? (list 2-3 things)
+        2. What are you genuinely GOOD AT? (list 2-3 things)
+        3. What does the WORLD NEED that you care about solving? (list 1-2 things)
+        4. What can you be PAID FOR? (list 1-2 things)
+    field: ikigai
+    type: object
+
+  - id: values
+    prompt: |
+      Name 2-3 non-negotiable values that must show up in everything you build.
+      (e.g. "honesty over politeness", "stewardship over extraction", "depth over reach")
+    field: values
+    type: array
+
+  - id: customer_archetypes
+    prompt: |
+      Who do you most often build for? Describe 1-2 customer archetypes in plain English.
+      (e.g. "solo founders with ADHD", "mid-career PMs transitioning to founding")
+    field: customer_archetypes
+    type: array
+
+  - id: current_focus
+    prompt: |
+      What product or project are you actively working on right now?
+      (Just the name or a one-liner — pstack will create a workspace for it.)
+    field: current_focus
+    type: string
+    optional: true
