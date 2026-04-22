@@ -1,0 +1,64 @@
+artifact_type: prd
+schema_version: "0.1"
+passing_floor: 3.5
+
+# Weighted scoring: multiply each dimension score (1–5) by its weight, sum, divide by total weight.
+# Total weight: 5 + 4 + 3 + 4 + 3 = 19
+# Passing floor: weighted average ≥ 3.5
+
+dimensions:
+
+  - name: hypothesis
+    weight: 5
+    prompts:
+      - "Is the hypothesis falsifiable — does it name a specific user, behavior, mechanism, and measurable outcome?"
+      - "Is there a baseline and a target — not just 'increase'?"
+      - "Is there an explicit falsification condition — what evidence would prove this hypothesis wrong?"
+    scale:
+      "1": "No hypothesis. Or a wish ('users will love this'). Or a feature description framed as a hypothesis."
+      "3": "Hypothesis present but missing one or more components: no mechanism, no measurable outcome, or no baseline. 'We believe users will engage more' level."
+      "5": "Full hypothesis: specific user, specific behavior, mechanism (because), measurable outcome with baseline and target within a timeframe. Falsification condition explicitly stated."
+
+  - name: success_metrics
+    weight: 4
+    prompts:
+      - "Are all metrics outcome-based — do they measure behavior change in users, not outputs from the team?"
+      - "Does each metric have a baseline and a target?"
+      - "Are leading metrics distinguished from lagging ones? Is there at least one guardrail metric?"
+    scale:
+      "1": "Metrics are outputs (features shipped, story points, DAU with no context). No baselines or targets. All metrics are team-facing, not user-facing."
+      "3": "At least one outcome metric present. Others may be outputs. No baselines or targets. Leading and lagging metrics not distinguished."
+      "5": "All metrics are outcome-based. Each has a baseline and target. Leading metrics clearly distinguished from lagging. At least one guardrail metric. Segment interpretation rules stated."
+
+  - name: scope_discipline
+    weight: 3
+    prompts:
+      - "Are there explicit in-scope and out-of-scope boundaries — not just a feature list?"
+      - "Does each out-of-scope item have a stated rationale?"
+      - "Does the scope make a clear enough bet that a team could ship it without an ongoing conversation?"
+    scale:
+      "1": "Scope is a feature list with no explicit exclusions. Out-of-scope items are not named. A team would need ongoing conversation to know what's in."
+      "3": "In-scope items listed. Out-of-scope is a list without rationale. Scope exists but doesn't prevent scope creep — no explicit 'why not'."
+      "5": "In/out clearly divided. Every out-of-scope item has a stated rationale ('not in v1 because X'). Scope makes a focused, arguable bet that a team can ship without ambiguity."
+
+  - name: risk_identification
+    weight: 4
+    prompts:
+      - "Are all four Cagan risk types addressed — value, usability, feasibility, viability?"
+      - "Does each risk have a discovery action or evidence that it's already de-risked?"
+      - "Are risks honest — is the team naming the hard questions or only the comfortable ones?"
+    scale:
+      "1": "No risks, or risks are delivery risks (timeline, budget). Cagan product risks (value, usability, feasibility, viability) are not addressed."
+      "3": "1–2 Cagan risks identified and named. Others missing. No discovery actions — risks listed but not acted on. Or all risks marked 'low' without evidence."
+      "5": "All four Cagan risks present. Each risk rated (High/Med/Low) with reasoning. Each has a specific discovery action or evidence that it's already de-risked (spike completed, prior research cited)."
+
+  - name: ac_quality
+    weight: 3
+    prompts:
+      - "Are acceptance criteria in Given/When/Then format?"
+      - "Is the 'Then' clause measurable and testable by an engineer — not a design note?"
+      - "Do ACs cover both happy path and at least one edge case per story?"
+    scale:
+      "1": "ACs are design notes or UI descriptions ('button should be blue', 'page should load fast'). Not testable by an engineer."
+      "3": "Some ACs in Given/When/Then. Some are still design notes. Then clauses present but not all measurable. Edge cases missing."
+      "5": "All ACs in Given/When/Then format. All Then clauses are testable by an engineer with no ambiguity. At least one edge case covered per story. ACs are stable enough to use as a definition of done."

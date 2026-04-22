@@ -1,0 +1,64 @@
+artifact_type: vision
+schema_version: "0.1"
+passing_floor: 3.5
+
+# Weighted scoring: multiply each dimension score (1–5) by its weight, sum, divide by total weight.
+# Total weight: 5 + 4 + 3 + 3 + 2 = 17
+# Passing floor: weighted average ≥ 3.5
+
+dimensions:
+
+  - name: hypothesis_clarity
+    weight: 5
+    prompts:
+      - "Is the problem stated from the user's perspective — not the builder's?"
+      - "Is there a specific user (not a demographic) and a specific behavior named?"
+      - "Could you falsify this claim? What evidence would prove it wrong?"
+    scale:
+      "1": "Problem is vague, jargon-heavy, or stated from the builder's perspective. No specific user or behavior named. Cannot be falsified."
+      "3": "Problem is stated and user is identified, but loosely (a segment, not a person). Behavior named but not testable. No falsification condition."
+      "5": "Problem is falsifiable. Specific person named with enough context to recognize them. Specific behavior change named. Falsification condition either stated or clearly derivable."
+
+  - name: jtbd_sharpness
+    weight: 4
+    prompts:
+      - "Is the JTBD stated as a job the user is hiring the product to do — not a feature request?"
+      - "Are all three dimensions present: functional (what they do), emotional (how they feel), social (how they're seen)?"
+      - "Is the job framed as progress the user is seeking — not a description of the product?"
+    scale:
+      "1": "JTBD is missing or stated as a feature request ('users want a timer'). No distinction between the job and the product."
+      "3": "Functional job named. Emotional and social dimensions absent or generic ('feel productive'). Job is from the builder's perspective, not the user's."
+      "5": "All three dimensions named with specificity. Job is stated in the user's voice as a progress they are seeking. Product is not mentioned in the JTBD statement."
+
+  - name: north_star_quality
+    weight: 3
+    prompts:
+      - "Is the North Star metric user-facing — does it measure something the user experiences, not something the business counts?"
+      - "Is it a leading indicator of long-term value — not a lagging metric (revenue) or a vanity metric (downloads)?"
+      - "Could a team decompose it into input metrics they can act on this sprint?"
+    scale:
+      "1": "No NSM, or NSM is an output metric (revenue, downloads, story points). No connection to user value."
+      "3": "NSM identifies a user action but not the underlying value ('sessions started'). Too broad to decompose. Or NSM is correct but input metrics are missing."
+      "5": "NSM is measurable, user-facing, and a leading indicator of long-term retention. Operational definition stated. At least two input metrics that the team can act on are named."
+
+  - name: why_now
+    weight: 3
+    prompts:
+      - "Is there a specific catalyst — not just 'the market is big' or 'people want this'?"
+      - "Does the Why Now explain why this window is open now and might close?"
+      - "Is there evidence (trend data, behavioral shift, regulatory change, technology unlock) — not just assertion?"
+    scale:
+      "1": "No Why Now. Or a generic market-size claim ('the productivity app market is $X billion')."
+      "3": "A trend is named but no evidence cited. Or Why Now is about the builder's readiness ('we have the team now'), not a market moment."
+      "5": "Specific catalyst named with evidence. Explains why the window is open now and why it will close. Evidence is observable (behavioral shift, regulatory change, technology unlock) — not just asserted."
+
+  - name: non_goals
+    weight: 2
+    prompts:
+      - "Are non-goals explicit — stated as 'We won't do X because Y' rather than silent omissions?"
+      - "Does each non-goal have a rationale that would prevent a reasonable person from challenging it?"
+      - "Do the non-goals cover the obvious adjacent features and segments that might otherwise cause scope creep?"
+    scale:
+      "1": "No non-goals. Or a vague segment exclusion with no rationale ('not enterprise'). Scope creep is unguarded."
+      "3": "Non-goals listed but without rationale. Reads as a feature cut list, not deliberate choices. Does not cover the most obvious scope-creep risks."
+      "5": "Each non-goal is a deliberate, named choice: 'We will not do X because Y.' Rationale prevents reasonable challenge. Covers the most obvious adjacent features and segments."

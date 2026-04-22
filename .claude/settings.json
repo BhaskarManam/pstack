@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "sh -c 'echo \"$CLAUDE_TOOL_INPUT_FILE_PATH\" | grep -q \"pstack-workspace\" && echo \"\\n── pstack ──────────────────────────────────────\\nArtifact written. Consider running /critique to score it,\\nor a persona review (/cagan-review, /shreyas-review, etc.)\\nRun /pstack-help for the recommended next step.\\n────────────────────────────────────────────────\" || true'",
+            "command": "jq -r '.tool_input.file_path // \"\"' | grep -q 'pstack-workspace' && printf '\\n── pstack ──────────────────────────────────────\\nArtifact written. Consider running /critique to score it,\\nor a persona review (/cagan-review, /shreyas-review, etc.)\\nRun /pstack-help for the recommended next step.\\n────────────────────────────────────────────────\\n' || true",
             "description": "Nudge to run /critique after writing a pstack artifact"
           }
         ]

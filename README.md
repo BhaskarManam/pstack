@@ -11,7 +11,7 @@ pstack is a [Claude Code](https://claude.ai/code) skill pack for product builder
 ### Option A — gstack-style (recommended)
 
 ```bash
-git clone --single-branch --depth 1 https://github.com/<username>/pstack.git \
+git clone --single-branch --depth 1 https://github.com/bhaskarmanam/pstack.git \
   ~/.claude/skills/pstack
 cd ~/.claude/skills/pstack && ./setup
 ```
@@ -21,7 +21,7 @@ Flat commands: `/vision`, `/prd`, `/design-brief`, …
 ### Option B — Claude Code plugin
 
 ```bash
-git clone https://github.com/<username>/pstack.git
+git clone https://github.com/bhaskarmanam/pstack.git
 claude --plugin-dir ./pstack
 ```
 

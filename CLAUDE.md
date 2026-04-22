@@ -13,7 +13,13 @@ A gstack-style Claude Code skill pack: Vision → PRD → Design brief, with per
 
 ## Current build phase
 
-**Phase 0 complete** (committed c2179ac). **Phase 0a is next:** `/onboard` skill.
+**Phase 0 complete** (committed c2179ac). **Phase 0a complete** (`skills/onboard/`). **Phase 0b complete** (knowledge foundation — all 7 framework files with TL;DR headers, 9 calibration files, INDEX.md, glossary.md). **Phase 0c complete** (autonomy infrastructure).
+
+Phase 0c deliverables (all done): `last-session.md` write pattern (`knowledge/schemas/last-session.schema.md`), `quality-log.yaml` append schema (`knowledge/schemas/quality-log.schema.yaml`), `feedback/<skill>-log.yaml` schema (`knowledge/schemas/feedback-log.schema.yaml`), `feedback/README.md` + gitignore entries, `.claude/settings.json` hook (artifact-write nudge, fixed to use stdin JSON). Note: `knowledge/rubrics/` remains empty — rubric YAML files build in Phases 1–3.
+
+**All 14 skills complete.** All SKILL.md files, persona.yaml files, templates, rubric YAMLs, and config files are built. See layout below. Next phase: testing the skills work end-to-end, then setup script updates and symlink wiring for new skills.
+
+**Bhaskar persona review required:** `skills/bhaskar-review/persona.yaml` was built from your expressed values — review and edit before using `/bhaskar-review` in production.
 
 Full 16-phase build plan: `/Users/parents/.claude/plans/hi-before-you-start-typed-teapot.md`
 Session state: `~/.config/pstack/last-session.md`
@@ -45,21 +51,36 @@ Session state: `~/.config/pstack/last-session.md`
 ## Repository layout (quick reference)
 
 ```
-skills/          → 14 skill directories (build one at a time)
+skills/
+  onboard/         → /onboard ✓
+  vision/          → /vision (SKILL.md + template.md) ✓
+  prd/             → /prd (SKILL.md + template.md) ✓
+  design-brief/    → /design-brief (SKILL.md + template.md) ✓
+  critique/        → /critique ✓
+  cagan-review/    → /cagan-review (SKILL.md + persona.yaml) ✓
+  shreyas-review/  → /shreyas-review (SKILL.md + persona.yaml) ✓
+  lenny-review/    → /lenny-review (SKILL.md + persona.yaml) ✓
+  bhaskar-review/  → /bhaskar-review (SKILL.md + persona.yaml) ✓ ← USER REVIEW NEEDED
+  challenge/       → /challenge (SKILL.md + config.yaml) ✓
+  pstack-status/   → /pstack-status ✓
+  pstack-upgrade/  → /pstack-upgrade ✓
+  pstack-help/     → /pstack-help ✓
+  pstack-learn/    → /pstack-learn ✓
 knowledge/
-  INDEX.md       → lazy-loading reference (build in Phase 0b)
-  frameworks/    → distilled product-leader canon (Phase 0b)
-  rubrics/       → YAML rubrics (Phase 0b)
-  calibration/   → scored reference artifacts (Phase 0b)
-  challenges/    → CEO/CPO provocation bank (Phase 9)
-  schemas/       → all 5 schemas (Phase 0 ✓)
-feedback/        → per-skill user feedback logs (gitignored on user's side)
-tests/           → eval harness with fixtures and golden contracts (Phase 0 ✓)
+  INDEX.md         → lazy-loading reference + schemas section ✓
+  frameworks/      → all 7 framework files with TL;DR headers ✓
+  rubrics/         → vision.yaml, prd.yaml, design-brief.yaml ✓
+  calibration/     → all 9 scored reference artifacts ✓
+  schemas/         → 8 schemas total (5 Phase-0 + 3 Phase-0c) ✓
+  glossary.md      → key terms ✓
+feedback/
+  README.md        → explains feedback dir structure ✓
+  *-log.yaml       → gitignored; created on first use
+tests/             → eval harness with fixtures and golden contracts ✓
 ```
 
 ## What NOT to do
 
-- Don't skeleton all skills at once — build one completely, verify, advance
 - Don't write framework files without WebSearch grounding from the originator's public work
 - Don't surface sub-par generator output — the internal critique loop handles it invisibly
 - Don't commit CONVERSATIONS.md (gitignored); run ./publish-docs for the public version

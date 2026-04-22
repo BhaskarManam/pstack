@@ -1,0 +1,25 @@
+# /challenge configuration
+# Controls default behavior for the daily CEO/CPO provocation skill
+
+cadence: daily                    # How often challenges are generated (daily / weekly)
+challenge_count: 1                # Number of challenges per run
+max_per_day: 1                    # Rate limit — prevents running multiple times in one day
+
+categories:
+  - strategy                      # Bets, priorities, what you're choosing not to do
+  - customer                      # Who you're building for, discovery, insights
+  - revenue                       # Business model, monetization, viability
+  - priorities                    # LNO, time allocation, what matters most right now
+  - reflection                    # Purpose, ikigai, builder sustainability, why you're doing this
+
+# Category rotation: challenges cycle through all 5 categories over a week,
+# with category selection weighted by what's been least addressed recently.
+# If CHALLENGES.md exists, read the last 5 challenges to avoid repetition.
+
+web_search_enabled: true          # /challenge uses WebSearch for current market context
+web_search_queries: 2             # Max WebSearch calls per challenge generation
+
+challenge_format:
+  style: "CEO/CPO provocation"   # Not a how-to guide — a hard question or uncomfortable truth
+  length: "200-350 words"        # Enough to be substantive; short enough to be actionable
+  tone: "direct, challenging"    # Provocative without being gratuitous

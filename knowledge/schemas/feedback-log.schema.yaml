@@ -1,0 +1,127 @@
+# feedback-log.schema.yaml
+# Defines entry structure for feedback/<skill>-log.yaml
+#
+# One log file per generator skill:
+#   feedback/vision-log.yaml
+#   feedback/prd-log.yaml
+#   feedback/design-brief-log.yaml
+#
+# These files live in the pstack installation directory.
+# They are gitignored so personal feedback is never pushed to the public repo.
+# Read by /pstack-learn to identify patterns and propose framework improvements.
+#
+# Format: YAML list. Append one entry per skill run where user provided feedback.
+# Always append — never overwrite the entire file.
+
+schema_version: "0.1"
+
+# ---------------------------------------------------------------------------
+# Entry schema (one entry per generator run)
+# ---------------------------------------------------------------------------
+
+entry:
+
+  # --- Identity ---
+  date: "YYYY-MM-DD"                        # Date of skill run (UTC)
+  timestamp: "YYYY-MM-DDThh:mmZ"            # Full ISO 8601 timestamp
+  skill: "/vision"                          # Skill that captured this feedback
+  pstack_version: "0.1.0"
+
+  # --- Project ---
+  project: "Focus Timer"
+  slug: "focus-timer"
+  artifact_file: "00-vision.md"             # File written by this skill run; null for meta/reviewer skills
+  rubric_score: 4.1                         # Final rubric score of the artifact; null for meta skills
+
+  # --- User response ---
+  # Prompt shown to user: "One thing you'd change about this artifact? (Enter to skip)"
+  user_response: "The 'why now' section felt thin — wanted more market evidence"
+  skipped: false                            # true if user pressed Enter without typing
+
+  # --- Claude-derived tags ---
+  # Added by the skill at capture time. Used by /pstack-learn to pattern-match.
+  # Pick the most applicable tag(s). Do not invent tags outside this list.
+  tags:
+    # framework_gap    — feedback suggests the framework file for this dimension is thin
+    # template_weakness — feedback suggests the output template misses a section or prompt
+    # rubric_mismatch  — score didn't match user's perceived quality
+    # skill_flow       — feedback is about the interview questions or flow, not the output
+    # positive         — user expressed satisfaction (record to reinforce working patterns)
+    - "framework_gap"
+
+  # --- Structured interpretation ---
+  improvement_signal:
+    framework_files_loaded:                 # Which framework files were loaded this run
+      - "frameworks/jtbd.md"
+      - "frameworks/north-star-metric.md"
+    section_flagged: "why_now"             # Which artifact section the feedback refers to; null if not identifiable
+    proposed_improvement: null             # Filled in by /pstack-learn — never by the capturing skill
+
+# ---------------------------------------------------------------------------
+# Example feedback/vision-log.yaml file
+# ---------------------------------------------------------------------------
+
+# - date: "2026-04-19"
+#   timestamp: "2026-04-19T15:30Z"
+#   skill: "/vision"
+#   pstack_version: "0.1.0"
+#   project: "Focus Timer"
+#   slug: "focus-timer"
+#   artifact_file: "00-vision.md"
+#   rubric_score: 4.1
+#   user_response: "The 'why now' section felt thin — wanted more market evidence"
+#   skipped: false
+#   tags:
+#     - "framework_gap"
+#   improvement_signal:
+#     framework_files_loaded:
+#       - "frameworks/jtbd.md"
+#       - "frameworks/north-star-metric.md"
+#     section_flagged: "why_now"
+#     proposed_improvement: null
+#
+# - date: "2026-04-20"
+#   timestamp: "2026-04-20T10:15Z"
+#   skill: "/vision"
+#   pstack_version: "0.1.0"
+#   project: "Habit Builder"
+#   slug: "habit-builder"
+#   artifact_file: "00-vision.md"
+#   rubric_score: 3.8
+#   user_response: ""
+#   skipped: true
+#   tags: []
+#   improvement_signal:
+#     framework_files_loaded:
+#       - "frameworks/jtbd.md"
+#     section_flagged: null
+#     proposed_improvement: null
+
+# ---------------------------------------------------------------------------
+# Feedback capture prompt (embed in each generator SKILL.md)
+# ---------------------------------------------------------------------------
+#
+# After presenting the final artifact, ask:
+#
+#   "One thing you'd change about this [vision/PRD/design brief]? Press Enter to skip."
+#
+# Rules:
+# - Ask exactly once, after the artifact is written.
+# - If user skips (empty Enter), record skipped: true and do not push.
+# - If user responds, derive the best-fit tag(s) from the response.
+# - Always append the entry, even for skipped feedback (signals completion without feedback).
+# - Do not ask for a numeric rating — the rubric score is already captured in quality-log.yaml.
+# - Do not display the tag derivation to the user — it is internal bookkeeping.
+
+# ---------------------------------------------------------------------------
+# Notes for /pstack-learn
+# ---------------------------------------------------------------------------
+#
+# Patterns to look for across entries:
+#
+# 1. section_flagged recurring for the same dimension → framework file needs expansion
+# 2. template_weakness tag on multiple runs → output template missing a key section
+# 3. rubric_mismatch tag → rubric dimension definitions may not match user expectations
+# 4. skill_flow tag → interview questions are insufficient; add an AskUserQuestion step
+# 5. High skipped rate → artifact quality may be high enough users feel no gap (good sign)
+#    OR → feedback prompt timing or phrasing is wrong (investigate with positive tag rate)

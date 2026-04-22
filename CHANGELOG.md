@@ -5,7 +5,7 @@ Format: [Semantic Versioning](https://semver.org/).
 
 ---
 
-## [Unreleased] — v0.1.0
+## v0.1.0 — 2026-04-22
 
 ### Added
 - Dual distribution: gstack-style install (`./setup` + symlinks) and `.claude-plugin` format

@@ -1,0 +1,118 @@
+# quality-log.schema.yaml
+# Defines entry structure for ~/.config/pstack/quality-log.yaml
+#
+# Read by /pstack-learn to identify scoring patterns across projects,
+# artifact types, and rubric dimensions — and to propose framework improvements.
+#
+# Format: YAML list. Append one entry per generator skill run.
+# Never overwrite; always append to the end of the file.
+#
+# File location: ~/.config/pstack/quality-log.yaml
+
+schema_version: "0.1"
+
+# ---------------------------------------------------------------------------
+# Entry schema (one entry per generator run)
+# ---------------------------------------------------------------------------
+
+entry:
+
+  # --- Identity ---
+  date: "YYYY-MM-DD"                        # Date of skill run (UTC)
+  timestamp: "YYYY-MM-DDThh:mmZ"            # Full ISO 8601 timestamp
+  skill: "/vision"                          # Skill name — /vision, /prd, or /design-brief
+  pstack_version: "0.1.0"                   # pstack version string
+
+  # --- Project ---
+  project: "Focus Timer"                    # Human-readable project name
+  slug: "focus-timer"                       # Kebab-case slug from .pstack-meta.json
+  working_dir: "/Users/manam/Projects/..."  # Absolute path
+
+  # --- Artifact ---
+  artifact_file: "00-vision.md"             # Filename written in pstack-workspace/<slug>/
+  artifact_type: "vision"                   # One of: vision, prd, design-brief
+
+  # --- Scores ---
+  scores:
+    draft_score: 3.2                        # Score of Claude's FIRST internal draft (never shown to user)
+    final_score: 4.1                        # Score after internal revision (the artifact user receives)
+    # If draft_score >= 3.5, no revision ran and final_score == draft_score.
+
+  revision_triggered: true                  # true = draft_score < 3.5 and internal revision ran
+
+  # --- Rubric dimensions ---
+  # One entry per dimension defined in the matching rubric YAML.
+  # Dimension names must match rubrics/<artifact_type>.yaml exactly.
+  dimensions:
+    - name: "hypothesis_clarity"
+      score: 4.0
+    - name: "jtbd_sharpness"
+      score: 3.5
+    - name: "north_star_quality"
+      score: 4.5
+    - name: "why_now"
+      score: 4.0
+    - name: "non_goals"
+      score: 4.5
+  # For /prd and /design-brief, dimension names differ — see rubrics/*.yaml
+
+  # --- User feedback (captured at end of skill run) ---
+  user_feedback:
+    provided: true                          # false if user skipped feedback prompt
+    note: "The 'why now' section felt thin — wanted more market evidence"
+    # note is null if provided == false
+
+  # --- Performance ---
+  duration_seconds: 47                      # Approx seconds from skill start to artifact write
+  frameworks_loaded:                        # Which framework files were read this run (lazy-loading audit)
+    - "frameworks/jtbd.md"
+    - "frameworks/north-star-metric.md"
+    - "frameworks/shreyas-product-sense.md"
+
+# ---------------------------------------------------------------------------
+# Example ~/.config/pstack/quality-log.yaml file
+# ---------------------------------------------------------------------------
+
+# - date: "2026-04-19"
+#   timestamp: "2026-04-19T15:30Z"
+#   skill: "/vision"
+#   pstack_version: "0.1.0"
+#   project: "Focus Timer"
+#   slug: "focus-timer"
+#   working_dir: "/Users/manam/Projects/focus-timer"
+#   artifact_file: "00-vision.md"
+#   artifact_type: "vision"
+#   scores:
+#     draft_score: 3.2
+#     final_score: 4.1
+#   revision_triggered: true
+#   dimensions:
+#     - name: "hypothesis_clarity"
+#       score: 4.0
+#     - name: "jtbd_sharpness"
+#       score: 3.5
+#     - name: "north_star_quality"
+#       score: 4.5
+#     - name: "why_now"
+#       score: 3.8
+#     - name: "non_goals"
+#       score: 4.5
+#   user_feedback:
+#     provided: true
+#     note: "Why now felt thin"
+#   duration_seconds: 47
+#   frameworks_loaded:
+#     - "frameworks/jtbd.md"
+#     - "frameworks/north-star-metric.md"
+
+# ---------------------------------------------------------------------------
+# Notes for /pstack-learn
+# ---------------------------------------------------------------------------
+#
+# Patterns to look for across entries:
+#
+# 1. Dimensions that consistently score below 3.5 → framework file may need expansion
+# 2. revision_triggered: true on most runs → draft quality is structurally low for that skill
+# 3. user_feedback notes clustering around a theme → signals a framework or template gap
+# 4. frameworks_loaded audits → identify which files are never loaded (can be dropped from INDEX)
+# 5. duration_seconds outliers → skills loading too much context (lazy-loading regression)

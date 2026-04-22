@@ -6,6 +6,14 @@ CONVERSATIONS.md
 # Per-project challenge logs (user's strategic reflections — opt-in commit)
 pstack-workspace/*/CHALLENGES.md
 
+# Per-skill user feedback logs (personal; never pushed to public repo)
+feedback/vision-log.yaml
+feedback/prd-log.yaml
+feedback/design-brief-log.yaml
+
+# Private marketing & launch intelligence
+pstack-workspace/pstack/marketing-intel.md
+
 # macOS
 .DS_Store
 .AppleDouble

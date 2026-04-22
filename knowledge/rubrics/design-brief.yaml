@@ -1,0 +1,64 @@
+artifact_type: design-brief
+schema_version: "0.1"
+passing_floor: 3.5
+
+# Weighted scoring: multiply each dimension score (1–5) by its weight, sum, divide by total weight.
+# Total weight: 5 + 4 + 4 + 3 + 3 = 19
+# Passing floor: weighted average ≥ 3.5
+
+dimensions:
+
+  - name: flow_clarity
+    weight: 5
+    prompts:
+      - "Does the primary flow cover every step from entry to exit — not just the happy path?"
+      - "Does each step name the user's decision, both the happy and edge-case exits, and the error state?"
+      - "Are transition and animation specs present where relevant?"
+    scale:
+      "1": "Primary flow is a screen list, not a decision sequence. No decision points, no error states, no edge cases. A designer cannot implement from this."
+      "3": "Happy path present with step-by-step decisions. Error states or edge cases missing for most steps. Transition specs absent. A designer could start but would need many clarifying questions."
+      "5": "Every step has: user decision, happy exit, edge-case exit, error state. Background/interruption states addressed. Animation specs for non-trivial transitions (e.g., '200ms scale, ease-out'). Skip paths tracked through every screen that offers them."
+
+  - name: screen_inventory
+    weight: 4
+    prompts:
+      - "Is every screen in the flow inventoried — including empty states, error states, and modals?"
+      - "Does each entry list the screen's purpose in job terms — not just a description of its content?"
+      - "Is the full navigation map present — entry points and exit points for every screen?"
+    scale:
+      "1": "Screen names only. No purpose, dominant element, or navigation map. A designer has no idea what goes on each screen or how they connect."
+      "3": "Screens listed with a brief purpose. Navigation map incomplete (some entries or exits missing). Dominant element stated but without rationale for why it's dominant. Empty states or modals missing."
+      "5": "Every screen including empty states, error screens, and modal overlays. Each has: purpose in job terms, dominant element with rationale, secondary elements, entry points, exit points. Full navigation graph is derivable from the inventory."
+
+  - name: constraint_specificity
+    weight: 4
+    prompts:
+      - "Are color constraints given as hex values — not adjectives like 'warm' or 'clean'?"
+      - "Are typography constraints given in pt sizes and font weights — not just 'use SF Pro'?"
+      - "Are Dark Mode token mappings specified? Is Reduce Motion addressed? Is WCAG level cited?"
+    scale:
+      "1": "Constraints are generic adjectives ('mobile-first', 'clean design', 'modern'). No hex values, no type sizes, no WCAG level. A designer cannot implement from this."
+      "3": "Some specific values (hex codes, font names). Dark Mode or Reduce Motion missing. WCAG level stated without contrast ratios. Copy tone rules absent or vague."
+      "5": "All color tokens with hex values. All type sizes in pt with font weight specified. Dark Mode: every token mapped to its dark equivalent. Reduce Motion: every relevant animation identified and Reduce Motion behavior specified. WCAG level cited with contrast ratios. Copy tone table with right/wrong examples."
+
+  - name: jtbd_ux_translation
+    weight: 3
+    prompts:
+      - "Is the JTBD (functional + emotional + social) applied per screen — not just stated once at the top?"
+      - "Is each screen's dominant element tied explicitly to the user's job — functional, emotional, or social?"
+      - "Do the interaction principles derive from the JTBD — or are they generic UX platitudes?"
+    scale:
+      "1": "JTBD mentioned once and not applied thereafter. Screens exist without job-connection. Interaction principles are generic ('reduce friction', 'make it intuitive')."
+      "3": "JTBD stated in the User & Job section. Not applied per screen. Connection to principles is implicit — a reader could infer it but it's not stated. Some principles are product-specific, some are generic."
+      "5": "Each screen's dominant element is explicitly tied to the user's functional, emotional, or social job. Interaction principles are product-specific and imply concrete design decisions. A designer can explain each principle by referencing the JTBD."
+
+  - name: accessibility
+    weight: 3
+    prompts:
+      - "Is a WCAG compliance level specified — AA or AAA — with minimum contrast ratios cited?"
+      - "Are touch targets specified in pt — and are edge-case interactive elements (small links) called out?"
+      - "Are VoiceOver/TalkBack label examples given? Is Dynamic Type max size tested? Is Reduce Motion handled? Is Dark Mode contrast separately verified?"
+    scale:
+      "1": "Accessibility not addressed. Or a vague note ('make it accessible' or 'WCAG compliant') with no specifics."
+      "3": "WCAG level stated. Touch target size mentioned. VoiceOver, Reduce Motion, Dynamic Type, or Dark Mode contrast missing or incomplete. A developer would need to make many accessibility decisions without guidance."
+      "5": "Full accessibility table: WCAG level with specific contrast ratios, touch targets in pt (including padded tap area for visually small elements), VoiceOver label examples with exact strings, Dynamic Type max size with test device called out, Reduce Motion: specific animations named with fallback behavior, Dark Mode contrast tested separately with note that ratios differ from light mode."

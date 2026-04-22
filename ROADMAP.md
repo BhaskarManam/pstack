@@ -17,6 +17,8 @@
 
 ## Parking Lot (ideas, not committed)
 
+- [ ] #105 MCP server for knowledge foundation — instead of updating framework files via git, expose a live MCP server that serves the latest distillations of Cagan, Shreyas, Lenny, etc. Skills call the server at runtime rather than reading static files. Keeps knowledge current without requiring users to run `pstack-upgrade`. Source: user, 2026-04-19.
+
 - [ ] #101 Searchable knowledge index (vector search or semantic grep when >50 framework files). Source: pstack, 2026-04-19.
 - [ ] #102 LLM-judge evals — scored eval harness using a second Claude call as judge, not just structural checks. Source: pstack, 2026-04-19.
 - [ ] #103 i18n — non-English persona voices and framework summaries. Source: pstack, 2026-04-19.

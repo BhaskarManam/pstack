@@ -1,8 +1,12 @@
 # pstack glossary
 
-Key terms used across pstack skills, rubrics, and challenge seeds. Sorted alphabetically.
+Key terms used across pstack skills, framework files, rubrics, and challenge seeds. Sorted alphabetically. For framework-specific terms, see the referenced file in `knowledge/frameworks/`.
 
 ---
+
+**Acceptance criteria (AC)** — Specific, testable conditions defining when a user story is complete. Written in Given/When/Then format. "The button should be blue" is a design note, not an AC.
+
+**Activation** — The moment a new user first experiences a product's core value. The bridge between acquisition and retention.
 
 **Artifact** — A structured markdown file produced by a pstack generator skill. Numbered by phase: `00-vision.md`, `02-prd.md`, `03-design-brief.md`.
 
@@ -18,7 +22,13 @@ Key terms used across pstack skills, rubrics, and challenge seeds. Sorted alphab
 
 **Design brief** — A structured document translating a PRD into design direction: user & job, primary flow, screen inventory, interaction principles, visual/voice constraints.
 
-**Four risks (Cagan)** — Value risk (do users want it?), Usability risk (can users use it?), Feasibility risk (can we build it?), Viability risk (does it work for the business?).
+**Falsification condition** — An explicit statement of what evidence would prove a hypothesis wrong. Hypotheses without falsification conditions are not hypotheses — they are hopes.
+
+**Four forces (JTBD)** — The psychological forces governing product switching: push (frustration with current) and pull (attraction to new) drive switching; anxiety (fear of change) and habit (comfort) resist it. See `frameworks/jtbd.md`.
+
+**Four risks (Cagan)** — Value risk (do users want it?), Usability risk (can users use it?), Feasibility risk (can we build it?), Viability risk (does it work for the business?). See `frameworks/cagan-discovery.md`.
+
+**Growth loop** — A self-sustaining cycle where output from one growth stage becomes input for the next, compounding over time. Distinct from a funnel (which is linear). See `frameworks/lenny-growth-loops.md`.
 
 **ikigai** — Japanese concept for the convergence of four circles: what you love, what you're good at, what the world needs, and what you can be paid for. Central to the Bhaskar persona.
 
@@ -32,7 +42,13 @@ Key terms used across pstack skills, rubrics, and challenge seeds. Sorted alphab
 
 **LNO (Leverage / Neutral / Overhead)** — Shreyas Doshi's task classification framework: Leverage tasks multiply impact; Neutral tasks maintain; Overhead tasks drain without creating value.
 
-**North Star metric** — The single metric that best captures whether customers are getting the core value from the product. Ideally a leading indicator of long-term retention.
+**High agency** — Shreyas Doshi's term for finding a way to get what you want without waiting for conditions to be perfect. High-agency founders shape their environment; low-agency founders adapt to it. See `frameworks/shreyas-product-sense.md`.
+
+**Hypothesis** — The falsifiable bet at the core of a PRD: "We believe [specific users] will [specific behavior] because [specific insight], and we'll know we're right when [specific measurable outcome]."
+
+**North Star metric** — The single metric that best captures whether customers are getting the core value from the product. Ideally a leading indicator of long-term retention. See `frameworks/north-star-metric.md`.
+
+**Non-goal** — An explicit statement of what the product will NOT do, with rationale. "We are not building X because Y" is a non-goal. "We are not an enterprise product" is a segment exclusion.
 
 **Passing floor** — The weighted average rubric score (default: 3.5/5) below which an artifact is not ready to advance to the next skill. Enforced by the dependency quality gate.
 
@@ -43,6 +59,10 @@ Key terms used across pstack skills, rubrics, and challenge seeds. Sorted alphab
 **pstack-workspace** — The directory in the user's current project where all artifacts and reviews are written (`./pstack-workspace/<slug>/`).
 
 **Rubric** — A structured YAML file defining scored dimensions for an artifact type. Used by `/critique` and the internal quality loop. Lives in `knowledge/rubrics/`.
+
+**Quality gate** — A pre-condition check in generator skills. `/prd` requires the vision to score ≥2.5; `/design-brief` requires the PRD to score ≥2.5. Prevents building on a weak foundation.
+
+**Retention** — The percentage of users who return after first use. The strongest signal of product-market fit and the foundation of all compounding growth. See `frameworks/lenny-growth-loops.md`.
 
 **Self-critique** — The internal step in which a generator skill scores its own draft against the rubric before presenting it to the user.
 
