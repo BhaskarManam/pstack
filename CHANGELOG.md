@@ -5,6 +5,25 @@ Format: [Semantic Versioning](https://semver.org/).
 
 ---
 
+## v0.2.0 — 2026-06-04
+
+### Added
+- **`/strategy`** — the gated "missing middle" between vision and PRD (slot `01-strategy.md`). Produces a focused bet (with an explicit won't-do list), segment & sequencing, the insight, and the success definition (North Star + inputs + guardrail). Grounded in Cagan's product strategy (focus / insights / actions / management).
+- **`/opportunity`** — optional, per-bet discovery assessment (`opportunity-<bet>.md`). Pressure-tests one strategic bet against the four risks, names the riskiest assumption + smallest viable test + kill criteria. Gates nothing; does not change project state.
+- `knowledge/frameworks/cagan-product-strategy.md` (WebSearch-grounded from SVPG)
+- `knowledge/rubrics/strategy.yaml` + `knowledge/rubrics/opportunity.yaml`
+- Six calibration artifacts (strategy + opportunity × score-2 / 3.5 / 5)
+- Golden shape contracts `tests/golden/strategy.expected.yaml` + `opportunity.expected.yaml`
+
+### Changed
+- **`/prd` now gates on strategy ≥ 2.5** (was vision ≥ 2.5). The PRD specs a bet the strategy has already chosen, and its success metrics inherit from the strategy's success definition.
+- `/vision` now suggests `/strategy` as the natural next step.
+- State machine adds `DRAFT_STRATEGY` / `STRATEGY_DONE` between `VISION_DONE` and `DRAFT_PRD` (`artifact-meta.schema.json`, `last-session.schema.md`).
+- `/critique`, `/challenge`, `/pstack-status`, `/pstack-help` updated to recognize the new artifacts and states.
+- 16 skills total (was 14). `setup` symlinks both new skill dirs.
+
+---
+
 ## v0.1.0 — 2026-04-22
 
 ### Added

@@ -10,7 +10,8 @@ Skills read this file first. Only pull full framework files when the `Use when` 
 |---|---|---|
 | `frameworks/jtbd.md` | People hire products for a job; design for the job (functional + emotional + social), not the persona | Vision (target user section), design brief (primary flow) |
 | `frameworks/north-star-metric.md` | One metric captures core customer value; teams work on input metrics that drive it—not the star itself | Vision (success picture / North Star section), PRD (success metrics) |
-| `frameworks/cagan-discovery.md` | Four risks to de-risk before building: value, usability, feasibility, viability | PRD (risks & assumptions), /cagan-review |
+| `frameworks/cagan-product-strategy.md` | Strategy is the missing middle between vision and product: focus, insights, actions, management. Vision inspires; strategy focuses | /strategy (the bet, sequencing, insight, success definition), challenge (strategy/priorities), /cagan-review |
+| `frameworks/cagan-discovery.md` | Four risks to de-risk before building: value, usability, feasibility, viability | PRD (risks & assumptions), /opportunity (per-bet discovery), /cagan-review |
 | `frameworks/shreyas-product-sense.md` | LNO prioritization (Leverage/Neutral/Overhead); high agency; most execution problems are strategy problems | /shreyas-review, challenge (priorities lens) |
 | `frameworks/lenny-growth-loops.md` | Growth = compounding loops, not linear funnels; retention is the engine, acquisition amplifies it | /lenny-review, challenge (revenue lens) |
 | `frameworks/hustle-badger-indie.md` | Solo builders win via niches, leverage, and constraints-as-clarity; ship fast to learn fast | Challenge (strategy lens), /bhaskar-review |
@@ -25,6 +26,8 @@ Rubric YAML files are loaded by `/critique` and all persona reviews to anchor nu
 | File | Artifact type | Dimensions scored |
 |---|---|---|
 | `rubrics/vision.yaml` | vision | Hypothesis clarity, JTBD sharpness, North Star quality, Why now, Non-goals |
+| `rubrics/strategy.yaml` | strategy | Bet/focus, Segment & sequencing, Insight quality, Success definition, Honest trade-offs |
+| `rubrics/opportunity.yaml` | opportunity | Bet specificity, Four-risks coverage, Riskiest assumption, Kill criteria |
 | `rubrics/prd.yaml` | prd | Hypothesis, Success metrics, Scope discipline, Risk identification, AC quality |
 | `rubrics/design-brief.yaml` | design-brief | Flow clarity, Screen inventory, Constraint specificity, JTBD-to-UX translation, Accessibility |
 
@@ -39,6 +42,12 @@ Reference artifacts at known score levels. Load the calibration set for the rele
 | `calibration/vision-score-2.md` | vision | 2.0 | Vague JTBD, no North Star, no Why Now |
 | `calibration/vision-score-3.5.md` | vision | 3.5 | Clear problem, weak North Star, thin Why Now |
 | `calibration/vision-score-5.md` | vision | 5.0 | All sections sharp; JTBD + NSM + Why Now complete |
+| `calibration/strategy-score-2.md` | strategy | 2.0 | Slogan not a bet, no segment, no insight, no measurable success |
+| `calibration/strategy-score-3.5.md` | strategy | 3.5 | Real bet + segment, but thin won't-do, generic insight, soft metrics |
+| `calibration/strategy-score-5.md` | strategy | 5.0 | Focused bet + won't-do, sequencing argument, privileged insight, judgeable success |
+| `calibration/opportunity-score-2.md` | opportunity | 2.0 | A solution spec, only feasibility, no riskiest assumption, no kill criteria |
+| `calibration/opportunity-score-3.5.md` | opportunity | 3.5 | One bet + 3 risks, but vague test thresholds and weak kill criteria |
+| `calibration/opportunity-score-5.md` | opportunity | 5.0 | Discovery question, all four risks, leap-of-faith test, concrete kill criteria |
 | `calibration/prd-score-2.md` | prd | 2.0 | Weak hypothesis, vanity metrics, no risks |
 | `calibration/prd-score-3.5.md` | prd | 3.5 | Decent scope, but success metrics under-specified |
 | `calibration/prd-score-5.md` | prd | 5.0 | Crisp hypothesis, measurable metrics, all four risks tagged |

@@ -12,7 +12,7 @@ PSTACK_CONFIG_DIR="$HOME/.config/pstack"
 SNIPPET="$PSTACK_DIR/CLAUDE.md.snippet"
 VERSION="v0.1"
 
-SKILLS="vision prd design-brief critique cagan-review shreyas-review lenny-review bhaskar-review challenge onboard pstack-status pstack-upgrade pstack-help pstack-learn"
+SKILLS="vision strategy opportunity prd design-brief critique cagan-review shreyas-review lenny-review bhaskar-review challenge onboard pstack-status pstack-upgrade pstack-help pstack-learn"
 
 # ── Helpers ────────────────────────────────────────────────────────────────
 
@@ -244,6 +244,8 @@ print_header "pstack ${VERSION} installed"
 printf '\n  Commands available:\n'
 printf '    /onboard         seed your user profile\n'
 printf '    /vision          product vision doc\n'
+printf '    /strategy        focused product strategy (the bet)\n'
+printf '    /opportunity     per-bet discovery assessment (optional)\n'
 printf '    /prd             rigorous PRD\n'
 printf '    /design-brief    design brief\n'
 printf '    /critique        rubric-based review\n'

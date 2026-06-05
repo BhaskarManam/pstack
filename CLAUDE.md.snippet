@@ -13,7 +13,9 @@ Use pstack skills for product-management work — vision, PRDs, design briefs, p
 
 **Available commands:**
 - /vision — create or refine a product vision doc
-- /prd — draft a rigorous PRD grounded in the vision
+- /strategy — turn the vision into a focused bet (segment, sequencing, insight, success definition)
+- /opportunity — optional per-bet discovery assessment (four risks, riskiest assumption, kill criteria) before a PRD
+- /prd — draft a rigorous PRD grounded in the strategy
 - /design-brief — produce a design brief from a PRD
 - /critique — score any artifact against its rubric; list gaps
 - /cagan-review — Marty Cagan's lens (four risks, outcomes > output)
@@ -28,8 +30,9 @@ Use pstack skills for product-management work — vision, PRDs, design briefs, p
 - /pstack-learn — distill feedback logs + user edits into framework improvement proposals
 
 **Conventions:**
-- Generators (/vision, /prd, /design-brief) run an internal draft→critique→revise loop before surfacing output. User sees only post-revision work.
-- Generators write to ./pstack-workspace/<slug>/ with numbered filenames: 00-vision.md, 02-prd.md, 03-design-brief.md.
+- Generators (/vision, /strategy, /prd, /design-brief) run an internal draft→critique→revise loop before surfacing output. User sees only post-revision work.
+- The gated spine is vision → strategy → PRD → design brief; each step requires the prior artifact to score ≥ 2.5. /opportunity is optional and per-bet — it requires strategy ≥ 2.5 but gates nothing downstream.
+- Generators write to ./pstack-workspace/<slug>/ with numbered filenames: 00-vision.md, 01-strategy.md, 02-prd.md, 03-design-brief.md; /opportunity writes opportunity-<bet>.md.
 - Each generator reads prior artifacts and knowledge/INDEX.md before interviewing — never starts cold.
 - Reviewers write to pstack-workspace/<slug>/reviews/ — they never mutate source artifacts.
 - /challenge appends to pstack-workspace/<slug>/CHALLENGES.md (gitignored by default).

@@ -1,0 +1,23 @@
+# Shape contract for /strategy output
+
+artifact_type: strategy
+
+required_sections:
+  - "The bet"
+  - "Segment & sequencing"
+  - "The insight"
+  - "Success definition"
+  - "Trade-offs"
+
+min_word_count: 400
+
+must_reference:
+  - "north star"
+
+rubric_floor_score: 3.5
+
+meta_checks:
+  - state_after: "STRATEGY_DONE"
+  - precondition_state: "VISION_DONE"
+  - artifact_entry_present: true
+  - rubric_score_recorded: true

@@ -30,7 +30,9 @@ Use the state machine mapping from `knowledge/schemas/last-session.schema.md`:
 |---|---|---|
 | NO_PROJECT | `/vision` — start a new product | If user-profile.yaml missing, `/onboard` first |
 | DRAFT_VISION | `/vision` — continue the vision | If score < 3.5, `/critique` first |
-| VISION_DONE | `/prd` — translate vision to requirements | If score 2.5–3.5, `/cagan-review` to pressure-test before PRD |
+| VISION_DONE | `/strategy` — turn the vision into a focused bet | If score 2.5–3.5, `/cagan-review` to pressure-test before strategy |
+| DRAFT_STRATEGY | `/strategy` — continue the strategy | If score < 3.5, `/critique` first |
+| STRATEGY_DONE | `/prd` — spec the bet | Or `/opportunity` to discovery-test a risky bet before the PRD |
 | DRAFT_PRD | `/prd` — continue the PRD | If score < 3.5, `/critique` first |
 | PRD_DONE | `/design-brief` — translate PRD to design direction | Or `/cagan-review` if four risks haven't been reviewed |
 | DRAFT_BRIEF | `/design-brief` — continue the brief | |

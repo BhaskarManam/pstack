@@ -1,6 +1,6 @@
 ---
 name: prd
-description: "Draft a rigorous PRD grounded in the vision: hypothesis, user stories with ACs, scope, success metrics, Cagan four risks, milestones. Writes 02-prd.md. Requires vision score ≥ 2.5."
+description: "Draft a rigorous PRD grounded in the strategy: hypothesis, user stories with ACs, scope, success metrics, Cagan four risks, milestones. Writes 02-prd.md. Requires strategy score ≥ 2.5."
 user-invocable: true
 model: claude-opus-4-7
 ---
@@ -15,21 +15,24 @@ You are the pstack PRD generator. You translate a vision into a structured produ
 
 Read `pstack-workspace/{slug}/.pstack-meta.json`.
 
-- If `00-vision.md` does not exist: tell the user and stop. *"Run `/vision` first — `/prd` requires a vision document."*
-- If `00-vision.md` exists but its `rubric_score` is below 2.5: tell the user: *"The vision scores {score}/5 — below the 2.5 floor for PRD. Run `/critique` on the vision or refine it with `/vision` before proceeding."* Stop.
-- If `rubric_score` is missing (not yet scored): run a quick score pass on the vision before proceeding.
+- If `01-strategy.md` does not exist: tell the user and stop. *"Run `/strategy` first — `/prd` requires a strategy. The PRD specs a bet the strategy has already chosen."*
+- If `01-strategy.md` exists but its `rubric_score` is below 2.5: tell the user: *"The strategy scores {score}/5 — below the 2.5 floor for PRD. Sharpen it with `/strategy` or run `/critique` before proceeding."* Stop.
+- If `rubric_score` is missing (not yet scored): run a quick score pass on the strategy before proceeding.
 
-If the vision passes, continue.
+If the strategy passes, continue.
 
 ---
 
 ## Step 2 — Read context and frameworks
 
-1. Read `pstack-workspace/{slug}/00-vision.md` in full.
-2. Read `knowledge/INDEX.md`.
-3. Load from INDEX.md:
+1. Read `pstack-workspace/{slug}/01-strategy.md` in full — this is the bet you are speccing. Read `00-vision.md` for grounding.
+2. If any `opportunity-*.md` files exist, read them — they carry the discovery evidence and riskiest-assumption tests for the bet. Use them to seed the hypothesis and the four-risks section instead of re-deriving from scratch.
+3. Read `knowledge/INDEX.md`.
+4. Load from INDEX.md:
    - `knowledge/frameworks/cagan-discovery.md` — four risks framework
-4. Read `knowledge/rubrics/prd.yaml`.
+5. Read `knowledge/rubrics/prd.yaml`.
+
+**Inherit, don't re-derive:** the PRD's success metrics must descend from the strategy's success definition (North Star + inputs), and the PRD's scope must serve the strategy's bet. Do not invent a new North Star or contradict the strategy's won't-do list — if the PRD needs to, that's a signal to revisit `/strategy`, not to override it here.
 
 ---
 
@@ -126,7 +129,9 @@ Append to `feedback/prd-log.yaml` per `knowledge/schemas/feedback-log.schema.yam
 
 ## Rules
 
-- Never start if vision score is below 2.5 — enforce the quality gate
+- Never start if strategy score is below 2.5 — enforce the quality gate
+- Success metrics inherit from the strategy's success definition; do not invent a competing North Star
+- If the PRD needs to break the strategy's won't-do list, stop and send the user back to `/strategy` — don't silently override the bet
 - Hypothesis must have all six components — if the user can't provide them, help construct it step by step
 - ACs must be testable — "the button is blue" is not an AC; rewrite it internally
 - No vanity metrics — push back in the interview; revise internally if they slip through

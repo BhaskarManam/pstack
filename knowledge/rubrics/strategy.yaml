@@ -1,0 +1,66 @@
+artifact_type: strategy
+schema_version: "0.1"
+passing_floor: 3.5
+
+# Weighted scoring: multiply each dimension score (1–5) by its weight, sum, divide by total weight.
+# Total weight: 5 + 4 + 4 + 5 + 3 = 21
+# Passing floor: weighted average ≥ 3.5
+# Grounded in Cagan's product strategy (focus / insights / actions / management) — see
+# knowledge/frameworks/cagan-product-strategy.md
+
+dimensions:
+
+  - name: bet_focus
+    weight: 5
+    prompts:
+      - "Is there a single, focused bet stated as a wager — not a slogan ('grow', 'win the market', 'delight users')?"
+      - "Is there an explicit list of what we are deliberately NOT doing this period, with reasons?"
+      - "Could a team read this and know what to say no to next week?"
+    scale:
+      "1": "No bet, or a slogan masquerading as strategy. Everything is a priority. No 'won't-do' list. Reads as vision restated or a feature wishlist."
+      "3": "A bet is present but soft — directionally clear yet hedged. The 'won't-do' list is thin or missing rationale. Some focus, but a team could still rationalize building almost anything."
+      "5": "One focused, arguable bet stated as a wager. An explicit 'we are NOT doing X, Y, Z this period because…' list. Focus is sharp enough that the team knows what to decline without asking."
+
+  - name: segment_sequencing
+    weight: 4
+    prompts:
+      - "Is the first segment named specifically — who we optimize for first, ahead of everyone else?"
+      - "Is there a stated sequence of bets, and a reason this order de-risks the vision fastest?"
+      - "Is the sequencing a real choice, or just 'do everything in parallel'?"
+    scale:
+      "1": "No segment priority (build for everyone) and no sequence. Bets are an undifferentiated list with no order or rationale."
+      "3": "A first segment is named but loosely. Some sequencing exists but the rationale for the order is weak or implied rather than argued."
+      "5": "A specific first segment, ahead of others, with reasoning. An explicit bet sequence with a clear argument for why this order de-risks the vision fastest (e.g., learning, leverage, or wedge logic)."
+
+  - name: insight_quality
+    weight: 4
+    prompts:
+      - "Is there a non-obvious insight — a privileged reason this bet will work NOW — drawn from data, customers, technology, or market evolution?"
+      - "Is the insight more than a restatement of the problem or the vision?"
+      - "Would a competitor with the same vision plausibly NOT make this same move? (If anyone would, it isn't an insight.)"
+    scale:
+      "1": "No insight. The bet rests on the obvious. Anyone with the same vision would make the same move. Or 'insight' is just the problem restated."
+      "3": "An insight is offered but thin or generic ('AI is changing things', 'users want it faster'). Some grounding, but not clearly privileged or time-specific."
+      "5": "A specific, non-obvious insight grounded in evidence (data point, customer pattern, tech shift, market timing) that explains why this bet works now and why others haven't taken it. Defensible."
+
+  - name: success_definition
+    weight: 5
+    prompts:
+      - "Is there a North Star metric that captures customer value (not revenue, not a vanity metric)?"
+      - "Are there 2–4 input/leading metrics the teams can actually move, plus at least one guardrail?"
+      - "Is there a stated condition for what 'the bet is winning' vs. 'the bet is losing' looks like?"
+    scale:
+      "1": "No success definition, or only revenue / output metrics. No way to tell whether the bet is paying off. The bet is a hope, not a measurable wager."
+      "3": "A North Star is present but partial — maybe vanity-leaning, or no input metrics, or no guardrail. You could roughly tell success but not act on leading signals."
+      "5": "A value-capturing North Star + 2–4 actionable input metrics + at least one guardrail. Explicit 'winning vs. losing' conditions so the bet can be judged, not just admired."
+
+  - name: honest_tradeoffs
+    weight: 3
+    prompts:
+      - "Does the strategy name what it is sacrificing by making this bet — not just what it gains?"
+      - "Are the trade-offs real (they cost something), or comfortable (they cost nothing)?"
+      - "Is there intellectual honesty about what could make this bet wrong?"
+    scale:
+      "1": "No trade-offs named. The strategy reads as all upside. No acknowledgement of what is given up or what would make it wrong."
+      "3": "Some trade-offs mentioned, but soft or self-serving ('we'll move a bit slower'). The hard sacrifice isn't named."
+      "5": "Honest, costly trade-offs named explicitly — what we give up, who we under-serve for now, what would prove the bet wrong. The strategy could lose, and it says how."

@@ -1,0 +1,24 @@
+# Shape contract for /opportunity output
+# Optional, per-bet discovery doc. Lightweight — does NOT advance the project state.
+
+artifact_type: opportunity
+
+required_sections:
+  - "The question"
+  - "four risks"
+  - "Riskiest assumption"
+  - "Kill criteria"
+
+min_word_count: 250
+
+must_reference:
+  - "four risks"
+
+rubric_floor_score: 3.5
+
+meta_checks:
+  - state_unchanged: true                 # opportunity is a side artifact — state stays STRATEGY_DONE
+  - precondition_state: "STRATEGY_DONE"
+  - artifact_entry_present: true
+  - rubric_score_recorded: true
+  - gates_downstream: false               # never blocks /prd

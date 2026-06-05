@@ -4,8 +4,8 @@
 # PRD: FocusTimer — Intention-Setting Flow v1.0
 
 **Version:** 1.0 | **Author:** [name] | **Status:** Ready for build
-**Vision:** `pstack-workspace/focus-timer/00-vision.md` (score: 4.8)
-**Quality gate:** Vision score ≥ 2.5 ✅
+**Strategy:** `pstack-workspace/focus-timer/01-strategy.md` (score: 4.7) — bet: the intention ritual is the wedge
+**Quality gate:** Strategy score ≥ 2.5 ✅
 
 ---
 

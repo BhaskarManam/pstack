@@ -13,7 +13,7 @@ required:
 properties:
   artifact_type:
     type: string
-    enum: [vision, prd, design-brief]
+    enum: [vision, strategy, opportunity, prd, design-brief]
 
   schema_version:
     type: string

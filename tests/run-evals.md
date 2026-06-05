@@ -23,16 +23,38 @@ After completion, verify the output at `pstack-workspace/focus-timer/00-vision.m
 - References at least one of `must_reference` framework files
 - `rubric_score` in `.pstack-meta.json` ≥ `rubric_floor_score`
 
-### Step 2 — PRD eval
+### Step 2 — Strategy eval
+
+```
+/strategy
+```
+
+Runs on the `00-vision.md` produced in Step 1 (gate: vision ≥ 2.5).
+Verify `01-strategy.md` against `tests/golden/strategy.expected.yaml`:
+- All `required_sections` present, including an explicit "won't-do" list under "The bet"
+- `state_after` is `STRATEGY_DONE`
+
+### Step 3 — Opportunity eval (optional path)
+
+```
+/opportunity
+```
+
+Runs on `01-strategy.md` (gate: strategy ≥ 2.5). Pick one bet when prompted.
+Verify `opportunity-<bet>.md` against `tests/golden/opportunity.expected.yaml`:
+- The project `state` is **unchanged** (still `STRATEGY_DONE`) — opportunity is a side artifact
+- Confirm `/prd` still runs whether or not this step was performed (opportunity gates nothing)
+
+### Step 4 — PRD eval
 
 ```
 /prd
 ```
 
-Use inputs from `tests/fixtures/focus-timer/seed-vision.md` when prompted.
-Verify `02-prd.md` against `tests/golden/prd.expected.yaml`.
+Runs on `01-strategy.md` (gate: **strategy** ≥ 2.5, not vision).
+Verify `02-prd.md` against `tests/golden/prd.expected.yaml`. Confirm the PRD's success metrics descend from the strategy's success definition.
 
-### Step 3 — Design brief eval
+### Step 5 — Design brief eval
 
 ```
 /design-brief
@@ -40,7 +62,7 @@ Verify `02-prd.md` against `tests/golden/prd.expected.yaml`.
 
 Verify `03-design-brief.md` against `tests/golden/design-brief.expected.yaml`.
 
-### Step 4 — Critique gap detection
+### Step 6 — Critique gap detection
 
 Copy `tests/fixtures/gapped-prd.md` to `pstack-workspace/focus-timer/02-prd.md`, then:
 
@@ -50,7 +72,7 @@ Copy `tests/fixtures/gapped-prd.md` to `pstack-workspace/focus-timer/02-prd.md`,
 
 Expected: critique surfaces the missing success metric section. If it doesn't flag this, the rubric or critique skill needs attention.
 
-### Step 5 — Persona differentiation check
+### Step 7 — Persona differentiation check
 
 Run on the same PRD:
 
@@ -67,6 +89,7 @@ After a clean run, save the output hashes:
 
 ```sh
 md5 pstack-workspace/focus-timer/00-vision.md
+md5 pstack-workspace/focus-timer/01-strategy.md
 md5 pstack-workspace/focus-timer/02-prd.md
 md5 pstack-workspace/focus-timer/03-design-brief.md
 ```

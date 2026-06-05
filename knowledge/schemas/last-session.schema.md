@@ -71,7 +71,9 @@ Skills use this table to populate "Suggested next." If no `.pstack-meta.json` ex
 |---|---|---|
 | `NO_PROJECT` | `/onboard` to set up the project | `/vision` to start directly |
 | `DRAFT_VISION` | `/vision` (continue) | `/cagan-review` for early risk scan on draft |
-| `VISION_DONE` | `/prd` | `/cagan-review` or `/shreyas-review` on the vision |
+| `VISION_DONE` | `/strategy` | `/cagan-review` or `/shreyas-review` on the vision |
+| `DRAFT_STRATEGY` | `/strategy` (continue) | `/critique` to score the current draft |
+| `STRATEGY_DONE` | `/prd` | `/opportunity` to pressure-test a risky bet; `/cagan-review` on the strategy |
 | `DRAFT_PRD` | `/prd` (continue) | `/critique` to score the current draft |
 | `PRD_DONE` | `/design-brief` | `/cagan-review`, `/lenny-review`, or `/shreyas-review` on the PRD |
 | `DRAFT_BRIEF` | `/design-brief` (continue) | `/critique` on the brief draft |

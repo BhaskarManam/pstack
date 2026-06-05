@@ -51,6 +51,7 @@ From `config.yaml` categories, choose the one least covered in recent challenges
 | State | Best category |
 |---|---|
 | DRAFT_VISION / VISION_DONE | strategy, customer |
+| DRAFT_STRATEGY / STRATEGY_DONE | strategy, priorities |
 | DRAFT_PRD / PRD_DONE | customer, priorities |
 | DRAFT_BRIEF / BRIEF_DONE | revenue, priorities |
 | Any | reflection (rotate in periodically) |

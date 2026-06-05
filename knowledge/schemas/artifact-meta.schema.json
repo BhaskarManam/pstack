@@ -22,7 +22,7 @@
         "slug":    { "type": "string", "pattern": "^[a-z0-9-]+$" },
         "state": {
           "type": "string",
-          "enum": ["DRAFT_VISION", "VISION_DONE", "DRAFT_PRD", "PRD_DONE", "DRAFT_BRIEF", "BRIEF_DONE"]
+          "enum": ["DRAFT_VISION", "VISION_DONE", "DRAFT_STRATEGY", "STRATEGY_DONE", "DRAFT_PRD", "PRD_DONE", "DRAFT_BRIEF", "BRIEF_DONE"]
         },
         "created": { "type": "string", "format": "date-time" }
       }
@@ -38,7 +38,7 @@
         "type": "object",
         "required": ["type", "path", "skill_version", "created"],
         "properties": {
-          "type":          { "type": "string", "enum": ["vision", "prd", "design-brief"] },
+          "type":          { "type": "string", "enum": ["vision", "strategy", "opportunity", "prd", "design-brief"] },
           "path":          { "type": "string" },
           "skill_version": { "type": "string" },
           "created":       { "type": "string", "format": "date-time" },

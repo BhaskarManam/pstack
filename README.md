@@ -40,7 +40,9 @@ Namespaced commands: `/pstack:vision`, `/pstack:prd`, …
 | Command | What it does |
 |---|---|
 | `/vision` | Draft or refine a product vision doc |
-| `/prd` | Draft a rigorous PRD grounded in the vision |
+| `/strategy` | Turn the vision into a focused bet: segment, sequencing, the insight, success definition |
+| `/opportunity` | Optional per-bet discovery assessment (four risks, riskiest assumption, kill criteria) before a PRD |
+| `/prd` | Draft a rigorous PRD grounded in the strategy |
 | `/design-brief` | Produce a design brief from a PRD |
 | `/critique` | Score any artifact against its rubric; list top gaps |
 | `/cagan-review` | Review through Marty Cagan's lens (four risks, outcomes > output) |
@@ -58,7 +60,9 @@ Namespaced commands: `/pstack:vision`, `/pstack:prd`, …
 
 ## How it works
 
-**Generators** (`/vision`, `/prd`, `/design-brief`) run an internal draft→critique→revise loop before surfacing output — you only see post-revision work. Each reads prior artifacts for context, interviews you with 3-5 focused questions, references the knowledge base, then writes a numbered artifact to `./pstack-workspace/<project>/`.
+**The gated spine** is `vision → strategy → PRD → design brief`. Each stage requires the prior artifact to score ≥ 2.5 on its rubric — so you can't write a PRD until the *bet* itself has survived a scored critique. That's the point: most tools generate artifacts; pstack refuses to let you spec the wrong thing. `/opportunity` is an optional, per-bet discovery step between strategy and PRD — it pressure-tests one risky bet and gates nothing.
+
+**Generators** (`/vision`, `/strategy`, `/prd`, `/design-brief`) run an internal draft→critique→revise loop before surfacing output — you only see post-revision work. Each reads prior artifacts for context, interviews you with 3-5 focused questions, references the knowledge base, then writes a numbered artifact to `./pstack-workspace/<project>/`.
 
 **Reviewers** (`/critique`, `/*-review`) are read-only. Output goes to `pstack-workspace/<slug>/reviews/`. They never modify your source artifacts.
 
@@ -79,7 +83,7 @@ knowledge/
 ├── challenges/        # 40+ CEO/CPO lens seeds across 6 lenses
 └── schemas/           # YAML/JSON schemas for all structured files
 
-skills/                # 14 skill directories (one per command)
+skills/                # 16 skill directories (one per command)
 tests/                 # Eval harness with golden snapshots
 feedback/              # Per-skill user feedback logs (gitignored)
 ```
@@ -88,7 +92,7 @@ feedback/              # Per-skill user feedback logs (gitignored)
 
 ## Roadmap
 
-See [ROADMAP.md](ROADMAP.md). v0.2 adds `/strategy`, `/metrics-plan`, and two more persona reviewers. v0.3 adds team-mode.
+See [ROADMAP.md](ROADMAP.md). v0.2 shipped the strategy layer (`/strategy` + `/opportunity`). Next: `/metrics-plan` and two more persona reviewers. v0.3 adds team-mode.
 
 ---
 

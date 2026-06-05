@@ -115,7 +115,7 @@ Append to `feedback/design-brief-log.yaml` per `knowledge/schemas/feedback-log.s
 
 ## Step 12 — Suggest next
 
-> "Your design brief is saved. The loop is complete — Vision → PRD → Design Brief. Next: `/cagan-review` to stress-test before engineering, or `/challenge` for a CEO/CPO-level provocation on the full arc."
+> "Your design brief is saved. The loop is complete — Vision → Strategy → PRD → Design Brief. Next: `/cagan-review` to stress-test before engineering, or `/challenge` for a CEO/CPO-level provocation on the full arc."
 
 ---
 

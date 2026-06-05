@@ -3,16 +3,16 @@
 # Private conversation log (use publish-docs to generate the public version)
 CONVERSATIONS.md
 
-# Per-project challenge logs (user's strategic reflections — opt-in commit)
-pstack-workspace/*/CHALLENGES.md
+# Internal workspace — vision/strategy/PRD artifacts, reviews, challenges,
+# marketing intel, test fixtures. Never pushed to the public repo.
+pstack-workspace/
 
 # Per-skill user feedback logs (personal; never pushed to public repo)
-feedback/vision-log.yaml
-feedback/prd-log.yaml
-feedback/design-brief-log.yaml
+feedback/*-log.yaml
 
-# Private marketing & launch intelligence
-pstack-workspace/pstack/marketing-intel.md
+# Internal dev context (kept local; not for public access)
+/CLAUDE.md
+.claude/settings.json
 
 # macOS
 .DS_Store

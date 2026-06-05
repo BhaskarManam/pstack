@@ -51,9 +51,11 @@ State: {STATE_MACHINE_STATE}
 Last active: {N} days ago
 
 Artifacts:
-  ✓ 00-vision.md      score: {X.X}/5  ({YYYY-MM-DD}) {STALE? ⚠️}
-  ✓ 02-prd.md         score: {X.X}/5  ({YYYY-MM-DD})
-  ✗ 03-design-brief.md  (not started)
+  ✓ 00-vision.md         score: {X.X}/5  ({YYYY-MM-DD}) {STALE? ⚠️}
+  ✓ 01-strategy.md       score: {X.X}/5  ({YYYY-MM-DD})
+  ○ opportunity-{bet}.md score: {X.X}/5  ({YYYY-MM-DD})  (optional, per-bet)
+  ✓ 02-prd.md            score: {X.X}/5  ({YYYY-MM-DD})
+  ✗ 03-design-brief.md   (not started)
 
 Reviews: {N} reviews in reviews/
 Last challenge: {YYYY-MM-DD} — {N} days ago  {OVERDUE? ⚠️}

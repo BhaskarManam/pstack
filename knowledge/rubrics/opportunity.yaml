@@ -1,0 +1,56 @@
+artifact_type: opportunity
+schema_version: "0.1"
+passing_floor: 3.5
+
+# Weighted scoring: multiply each dimension score (1–5) by its weight, sum, divide by total weight.
+# Total weight: 4 + 4 + 4 + 3 = 15
+# Passing floor: weighted average ≥ 3.5
+# An opportunity assessment is a LIGHTWEIGHT, per-bet discovery doc — kept tighter than strategy/PRD.
+# It pressure-tests ONE bet the strategy chose against the four risks before it becomes a PRD.
+# Grounded in Cagan's four risks — see knowledge/frameworks/cagan-discovery.md
+
+dimensions:
+
+  - name: bet_specificity
+    weight: 4
+    prompts:
+      - "Does this assessment name ONE specific bet from the strategy — not the whole strategy, not a vague theme?"
+      - "Is it clear which strategic objective this bet serves and for which segment?"
+      - "Is this distinct from the vision's JTBD and the PRD's hypothesis — i.e., a discovery question, not a solution spec?"
+    scale:
+      "1": "No single bet in focus — restates the strategy or the vision's JTBD. Or it's already a solution spec, not a discovery assessment."
+      "3": "A bet is named but blurry, or it drifts into describing the solution rather than testing whether the bet is worth speccing."
+      "5": "One specific bet, tied to a named strategic objective and segment, framed as a discovery question ('should we pursue this, and what must be true?') — clearly upstream of a PRD."
+
+  - name: four_risks_coverage
+    weight: 4
+    prompts:
+      - "Are all four Cagan risks (value, usability, feasibility, viability) considered for THIS bet?"
+      - "Is each risk assessed for this specific bet, not copied generically?"
+      - "Is the analysis honest about which risks are genuinely unknown vs. already de-risked?"
+    scale:
+      "1": "Risks absent or generic. Only feasibility considered, or risks are delivery risks (timeline, budget), not product risks."
+      "3": "Two or three of the four risks addressed for this bet. Coverage uneven; some risks asserted 'low' without reasoning."
+      "5": "All four risks addressed specifically for this bet, each rated with reasoning, honestly distinguishing unknown from already-de-risked."
+
+  - name: riskiest_assumption
+    weight: 4
+    prompts:
+      - "Is the single riskiest assumption — the one that, if false, kills the bet — explicitly named?"
+      - "Is it a genuine leap of faith, or a comfortable assumption dressed up as the risk?"
+      - "Is there a defined smallest viable test to attack that assumption (cheapest experiment that yields a real signal)?"
+    scale:
+      "1": "No riskiest assumption named, or it's a safe assumption. No test defined — discovery is described but not designed."
+      "3": "A riskiest assumption is named but may not be the true leap of faith, or the test is vague ('we'll talk to users') without a clear signal threshold."
+      "5": "The true leap-of-faith assumption is named, with a specific smallest viable test (method, sample, and what result would confirm vs. disconfirm)."
+
+  - name: kill_criteria
+    weight: 3
+    prompts:
+      - "Is there an explicit condition under which we abandon this bet (not just 'iterate')?"
+      - "Is the kill threshold concrete enough to act on (a number, a signal, a date)?"
+      - "Does the assessment protect against sunk-cost continuation?"
+    scale:
+      "1": "No kill criteria. The bet can only ever continue; there's no defined way to stop. Sunk-cost trap is wide open."
+      "3": "A stop condition is gestured at but vague ('if it's not working we'll reconsider') — not concrete enough to enforce."
+      "5": "Explicit, concrete kill criteria (specific signal/threshold/date) that would end the bet, plus what we'd do instead. Pre-commits to honesty."

@@ -153,7 +153,7 @@ If the user skips, record `skipped: true`.
 
 Based on state VISION_DONE:
 
-> "Your vision is saved. The natural next step is `/prd` to translate this into a product requirements document — or `/cagan-review` to pressure-test the vision's four risks first."
+> "Your vision is saved. The natural next step is `/strategy` — to turn this vision into a focused bet (which segment, what sequence, the insight, what winning looks like) before any spec gets written. Or run `/cagan-review` to pressure-test the vision's four risks first."
 
 ---
 

@@ -8,7 +8,7 @@ Key terms used across pstack skills, framework files, rubrics, and challenge see
 
 **Activation** — The moment a new user first experiences a product's core value. The bridge between acquisition and retention.
 
-**Artifact** — A structured markdown file produced by a pstack generator skill. Numbered by phase: `00-vision.md`, `02-prd.md`, `03-design-brief.md`.
+**Artifact** — A structured markdown file produced by a pstack generator skill. Numbered by phase along the gated spine: `00-vision.md`, `01-strategy.md`, `02-prd.md`, `03-design-brief.md`. `/opportunity` writes an unnumbered side artifact, `opportunity-<bet>.md`.
 
 **Artifact schema version** — The version of the `.pstack-meta.json` format, independent of the pstack tool version. Allows future migrations.
 
@@ -50,6 +50,8 @@ Key terms used across pstack skills, framework files, rubrics, and challenge see
 
 **Non-goal** — An explicit statement of what the product will NOT do, with rationale. "We are not building X because Y" is a non-goal. "We are not an enterprise product" is a segment exclusion.
 
+**Opportunity assessment** — A lightweight, per-bet discovery doc produced by `/opportunity`. Pressure-tests ONE bet the strategy chose against the four risks, names the riskiest assumption + smallest viable test + kill criteria, before the bet becomes a PRD. Optional; gates nothing; does not change project state. See `frameworks/cagan-discovery.md`.
+
 **Passing floor** — The weighted average rubric score (default: 3.5/5) below which an artifact is not ready to advance to the next skill. Enforced by the dependency quality gate.
 
 **Persona** — A structured `persona.yaml` file defining how a product-leader voice reviews artifacts. Adding a new reviewer requires only one file drop (no code changes).
@@ -60,7 +62,7 @@ Key terms used across pstack skills, framework files, rubrics, and challenge see
 
 **Rubric** — A structured YAML file defining scored dimensions for an artifact type. Used by `/critique` and the internal quality loop. Lives in `knowledge/rubrics/`.
 
-**Quality gate** — A pre-condition check in generator skills. `/prd` requires the vision to score ≥2.5; `/design-brief` requires the PRD to score ≥2.5. Prevents building on a weak foundation.
+**Quality gate** — A pre-condition check in generator skills. `/strategy` requires the vision to score ≥2.5; `/prd` requires the strategy to score ≥2.5; `/design-brief` requires the PRD to score ≥2.5; `/opportunity` requires the strategy to score ≥2.5. Prevents building on a weak foundation.
 
 **Retention** — The percentage of users who return after first use. The strongest signal of product-market fit and the foundation of all compounding growth. See `frameworks/lenny-growth-loops.md`.
 
@@ -70,7 +72,9 @@ Key terms used across pstack skills, framework files, rubrics, and challenge see
 
 **Slug** — A URL-safe project identifier (lowercase, hyphens) used as the directory name inside `pstack-workspace/`. Derived from the product name.
 
-**State machine** — The set of project states tracked in `.pstack-meta.json`: `DRAFT_VISION → VISION_DONE → DRAFT_PRD → PRD_DONE → DRAFT_BRIEF → BRIEF_DONE`.
+**State machine** — The set of project states tracked in `.pstack-meta.json`: `DRAFT_VISION → VISION_DONE → DRAFT_STRATEGY → STRATEGY_DONE → DRAFT_PRD → PRD_DONE → DRAFT_BRIEF → BRIEF_DONE`. (`/opportunity` is a side artifact and does not change the state.)
+
+**Strategy doc** — The gated middle artifact (`01-strategy.md`), produced by `/strategy`. Turns the vision into a focused bet: the wager (and the explicit won't-do list), segment & sequencing, the insight, and the success definition (North Star + inputs + guardrail). `/prd` will not run until it scores ≥2.5. See `frameworks/cagan-product-strategy.md`.
 
 **TL;DR header** — Three lines of `tldr` frontmatter at the top of every framework file, enabling skills to skip the full file when a quick summary is sufficient.
 

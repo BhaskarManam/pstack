@@ -27,6 +27,8 @@ tests/
 │   └── gapped-prd.md             # Deliberately flawed PRD for /critique testing
 └── golden/
     ├── vision.expected.yaml      # Shape contract for /vision output
+    ├── strategy.expected.yaml    # Shape contract for /strategy output
+    ├── opportunity.expected.yaml # Shape contract for /opportunity output (optional, per-bet)
     ├── prd.expected.yaml         # Shape contract for /prd output
     └── design-brief.expected.yaml
 ```

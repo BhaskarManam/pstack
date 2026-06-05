@@ -2,7 +2,8 @@
 
 ## v0.2 — Next
 
-- [ ] #012 `/strategy` skill — turns vision into a 6-12 month strategy doc with bets, priorities, and resource allocation. Source: pstack, 2026-04-19.
+- [x] #012 `/strategy` skill — the gated middle: focused bet (+ won't-do list), segment & sequencing, the insight, success definition. Shipped 2026-06-04. Source: pstack, 2026-04-19.
+- [x] #012b `/opportunity` skill — optional per-bet discovery assessment (four risks, riskiest assumption, kill criteria) before a PRD. Shipped 2026-06-04. Source: user, 2026-06-04.
 - [ ] #013 `/north-star` skill — interactive North Star metric design session (metric tree, leading/lagging, guardrails). Source: pstack, 2026-04-19.
 - [ ] #014 Ravi Mehta persona review (`/ravi-review`) — product excellence, user outcomes, and the "product leader" growth model. Source: user, 2026-04-19.
 - [ ] #015 Julie Zhuo persona review (`/julie-review`) — design leadership, taste, and the making-of-a-manager lens. Source: pstack, 2026-04-19.

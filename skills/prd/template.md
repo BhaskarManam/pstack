@@ -1,6 +1,6 @@
 # PRD: {Product Name} — {Slice Name} v1.0
 
-**Based on:** `00-vision.md` v1.0
+**Based on:** `01-strategy.md` (the bet) — grounded in `00-vision.md`
 **Platform:** {platform}
 **PM:** {name} | **Eng lead:** {name} | **Design lead:** {name}
 **Status:** Draft | **Target:** {YYYY-Qn}

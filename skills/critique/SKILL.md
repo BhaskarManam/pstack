@@ -26,6 +26,8 @@ Based on the artifact type:
 | Artifact | Rubric | Calibration files |
 |---|---|---|
 | `00-vision.md` | `knowledge/rubrics/vision.yaml` | `calibration/vision-score-2.md`, `calibration/vision-score-3.5.md`, `calibration/vision-score-5.md` |
+| `01-strategy.md` | `knowledge/rubrics/strategy.yaml` | `calibration/strategy-score-2.md`, `calibration/strategy-score-3.5.md`, `calibration/strategy-score-5.md` |
+| `opportunity-*.md` | `knowledge/rubrics/opportunity.yaml` | `calibration/opportunity-score-2.md`, `calibration/opportunity-score-3.5.md`, `calibration/opportunity-score-5.md` |
 | `02-prd.md` | `knowledge/rubrics/prd.yaml` | `calibration/prd-score-2.md`, `calibration/prd-score-3.5.md`, `calibration/prd-score-5.md` |
 | `03-design-brief.md` | `knowledge/rubrics/design-brief.yaml` | `calibration/design-brief-score-2.md`, `calibration/design-brief-score-3.5.md`, `calibration/design-brief-score-5.md` |
 
@@ -87,7 +89,8 @@ Format:
 ### Recommended next
 
 {If score < passing_floor}: Revise the artifact focusing on {lowest-scoring dimension} before running the next generator skill.
-{If score ≥ passing_floor and state is VISION_DONE}: Run `/prd` — vision passes the quality gate.
+{If score ≥ passing_floor and state is VISION_DONE}: Run `/strategy` — vision passes the quality gate.
+{If score ≥ passing_floor and state is STRATEGY_DONE}: Run `/prd` — strategy passes the quality gate (or `/opportunity` to pressure-test a risky bet first).
 {If score ≥ passing_floor and state is PRD_DONE}: Run `/design-brief` — PRD passes the quality gate.
 {If score ≥ passing_floor and state is BRIEF_DONE}: Run `/cagan-review` or another persona review.
 ```
@@ -106,4 +109,4 @@ Update the artifact's `rubric_score` to the new score. Timestamp the update.
 - The "Gaps to close" section must name specific lines or sections from the artifact — not generic advice
 - Never give a 5 unless the artifact matches the score-5 calibration example on that dimension
 - Never skip a dimension — every rubric dimension must appear in the output
-- If the artifact is a reviewer output (review file in `reviews/`), do not score it — `/critique` only scores generator artifacts (vision, PRD, design brief)
+- If the artifact is a reviewer output (review file in `reviews/`), do not score it — `/critique` only scores generator artifacts (vision, strategy, opportunity, PRD, design brief)
