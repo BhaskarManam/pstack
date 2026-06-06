@@ -1,9 +1,9 @@
 {
   "name": "pstack",
   "description": "Vision → PRD → Design brief for product builders. Persona reviews, CEO/CPO challenges, self-improving knowledge engine.",
-  "version": "0.1.0",
+  "version": "0.2.1",
   "author": {
-    "name": "<username>"
+    "name": "BhaskarManam"
   },
-  "repository": "https://github.com/<username>/pstack"
+  "repository": "https://github.com/BhaskarManam/pstack"
 }
