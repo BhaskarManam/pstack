@@ -16,6 +16,8 @@ Skills read this file first. Only pull full framework files when the `Use when` 
 | `frameworks/lenny-growth-loops.md` | Growth = compounding loops, not linear funnels; retention is the engine, acquisition amplifies it | /lenny-review, challenge (revenue lens) |
 | `frameworks/hustle-badger-indie.md` | Solo builders win via niches, leverage, and constraints-as-clarity; ship fast to learn fast | Challenge (strategy lens), /bhaskar-review |
 | `frameworks/ikigai-purpose-lens.md` | Purpose = intersection of love, skill, world-need, livelihood; ikigai-aligned founders sustain longer | /bhaskar-review, challenge (reflection lens) |
+| `frameworks/ravi-mehta-product-excellence.md` | Peak PMs hold themselves accountable to outcomes over output; 12 competencies in 4 clusters; product strategy stack connects mission to team execution | /ravi-review, challenge (team/competency lens) |
+| `frameworks/julie-zhuo-design-leadership.md` | Good product work starts with the problem; intentionality (reasoned "why" for every decision) is the hallmark of quality; simplicity is a discipline | /julie-review, design-brief (design intent check), critique (solution bias detection) |
 
 ---
 
@@ -28,6 +30,7 @@ Rubric YAML files are loaded by `/critique` and all persona reviews to anchor nu
 | `rubrics/vision.yaml` | vision | Hypothesis clarity, JTBD sharpness, North Star quality, Why now, Non-goals |
 | `rubrics/strategy.yaml` | strategy | Bet/focus, Segment & sequencing, Insight quality, Success definition, Honest trade-offs |
 | `rubrics/opportunity.yaml` | opportunity | Bet specificity, Four-risks coverage, Riskiest assumption, Kill criteria |
+| `rubrics/north-star.yaml` | north_star | NSM quality, Input metrics, Metric tree coherence, Guardrails, Operationalization |
 | `rubrics/prd.yaml` | prd | Hypothesis, Success metrics, Scope discipline, Risk identification, AC quality |
 | `rubrics/design-brief.yaml` | design-brief | Flow clarity, Screen inventory, Constraint specificity, JTBD-to-UX translation, Accessibility |
 
@@ -54,6 +57,8 @@ Reference artifacts at known score levels. Load the calibration set for the rele
 | `calibration/design-brief-score-2.md` | design-brief | 2.0 | No primary flow, vague constraints, no JTBD link |
 | `calibration/design-brief-score-3.5.md` | design-brief | 3.5 | Flow present but incomplete, constraints generic |
 | `calibration/design-brief-score-5.md` | design-brief | 5.0 | Full flow, specific constraints, tight JTBD-to-UX translation |
+| `calibration/north-star-score-2.md` | north_star | 2.0 | Vanity NSM (MAU), circular inputs, no guardrails |
+| `calibration/north-star-score-5.md` | north_star | 5.0 | Specific user-facing NSM, causal metric tree, 3 guardrails with thresholds, all metrics measurable |
 
 ---
 

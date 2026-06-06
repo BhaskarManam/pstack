@@ -42,12 +42,15 @@ Namespaced commands: `/pstack:vision`, `/pstack:prd`, …
 | `/vision` | Draft or refine a product vision doc |
 | `/strategy` | Turn the vision into a focused bet: segment, sequencing, the insight, success definition |
 | `/opportunity` | Optional per-bet discovery assessment (four risks, riskiest assumption, kill criteria) before a PRD |
+| `/north-star` | Optional metric design session: one North Star Metric + 3–5 inputs with causal story + guardrails |
 | `/prd` | Draft a rigorous PRD grounded in the strategy |
 | `/design-brief` | Produce a design brief from a PRD |
 | `/critique` | Score any artifact against its rubric; list top gaps |
 | `/cagan-review` | Review through Marty Cagan's lens (four risks, outcomes > output) |
 | `/shreyas-review` | Review through Shreyas Doshi's lens (LNO, high agency) |
 | `/lenny-review` | Review through Lenny Rachitsky's lens (growth loops, activation) |
+| `/ravi-review` | Review through Ravi Mehta's lens (12 competencies, outcome accountability, strategy stack) |
+| `/julie-review` | Review through Julie Zhuo's lens (problem-first, intentionality, simplicity as discipline) |
 | `/bhaskar-review` | Review through a heart-centric, purpose-led, ikigai lens |
 | `/challenge` | Surface a daily CEO/CPO provocation grounded in your current project |
 | `/onboard` | Seed your user profile for cross-project personalization |
@@ -83,7 +86,7 @@ knowledge/
 ├── challenges/        # 40+ CEO/CPO lens seeds across 6 lenses
 └── schemas/           # YAML/JSON schemas for all structured files
 
-skills/                # 16 skill directories (one per command)
+skills/                # 19 skill directories (one per command)
 tests/                 # Eval harness with golden snapshots
 feedback/              # Per-skill user feedback logs (gitignored)
 ```
@@ -92,7 +95,7 @@ feedback/              # Per-skill user feedback logs (gitignored)
 
 ## Roadmap
 
-See [ROADMAP.md](ROADMAP.md). v0.2 shipped the strategy layer (`/strategy` + `/opportunity`). Next: `/metrics-plan` and two more persona reviewers. v0.3 adds team-mode.
+See [ROADMAP.md](ROADMAP.md). v0.2.1 shipped three new skills: `/ravi-review`, `/julie-review`, and `/north-star`. Next: `/metrics-plan` and `/pstack-status` enhancements. v0.3 adds team-mode.
 
 ---
 
@@ -112,6 +115,8 @@ pstack stands on the shoulders of:
 - **Hustle Badger** — [hustlebadger.com](https://www.hustlebadger.com)
 - **Héctor García & Francesc Miralles** — Ikigai
 - **Brené Brown** — Dare to Lead (heart-centric leadership)
+- **Ravi Mehta** — [ravi-mehta.com](https://www.ravi-mehta.com) / [Reforge](https://www.reforge.com) (12 competencies, product strategy stack)
+- **Julie Zhuo** — [The Making of a Manager](https://www.juliezhuo.com/book/manager.html) / [The Looking Glass](https://lg.substack.com) (design leadership, intentionality)
 - **Garry Tan** — [gstack](https://github.com/garrytan/gstack) for the install pattern and inspiration
 
 MIT License — see [LICENSE](LICENSE).

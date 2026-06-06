@@ -10,9 +10,9 @@ CLAUDE_SKILLS_DIR="$HOME/.claude/skills"
 CLAUDE_MD="$HOME/.claude/CLAUDE.md"
 PSTACK_CONFIG_DIR="$HOME/.config/pstack"
 SNIPPET="$PSTACK_DIR/CLAUDE.md.snippet"
-VERSION="v0.1"
+VERSION="v0.2.1"
 
-SKILLS="vision strategy opportunity prd design-brief critique cagan-review shreyas-review lenny-review bhaskar-review challenge onboard pstack-status pstack-upgrade pstack-help pstack-learn"
+SKILLS="vision strategy opportunity north-star prd design-brief critique cagan-review shreyas-review lenny-review bhaskar-review ravi-review julie-review challenge onboard pstack-status pstack-upgrade pstack-help pstack-learn"
 
 # ── Helpers ────────────────────────────────────────────────────────────────
 
@@ -246,12 +246,15 @@ printf '    /onboard         seed your user profile\n'
 printf '    /vision          product vision doc\n'
 printf '    /strategy        focused product strategy (the bet)\n'
 printf '    /opportunity     per-bet discovery assessment (optional)\n'
+printf '    /north-star      metric tree design session (optional)\n'
 printf '    /prd             rigorous PRD\n'
 printf '    /design-brief    design brief\n'
 printf '    /critique        rubric-based review\n'
 printf '    /cagan-review    Marty Cagan lens\n'
 printf '    /shreyas-review  Shreyas Doshi lens\n'
 printf '    /lenny-review    Lenny Rachitsky lens\n'
+printf '    /ravi-review     Ravi Mehta lens\n'
+printf '    /julie-review    Julie Zhuo lens\n'
 printf '    /bhaskar-review  heart-centric ikigai lens\n'
 printf '    /challenge       daily CEO/CPO provocation\n'
 printf '    /pstack-help     what to do next\n'

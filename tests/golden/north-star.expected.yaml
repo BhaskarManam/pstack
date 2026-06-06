@@ -1,0 +1,25 @@
+# Shape contract for /north-star output
+# Optional, per-product metric design doc. Does NOT advance project state.
+
+artifact_type: north_star
+
+required_sections:
+  - "The North Star Metric"
+  - "metric tree"
+  - "Guardrail metrics"
+  - "Operationalization"
+  - "Known failure modes"
+
+min_word_count: 300
+
+must_reference:
+  - "causal"
+
+rubric_floor_score: 3.5
+
+meta_checks:
+  - state_unchanged: true           # optional skill — state stays as-is
+  - precondition_state: "VISION_DONE"   # soft check — warn but don't hard-block
+  - artifact_entry_present: true
+  - rubric_score_recorded: true
+  - gates_downstream: false         # never blocks /prd or /design-brief

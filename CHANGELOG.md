@@ -5,6 +5,21 @@ Format: [Semantic Versioning](https://semver.org/).
 
 ---
 
+## v0.2.1 — 2026-06-05
+
+### Added
+- **`/ravi-review`** — Ravi Mehta's lens: 12 product competencies (execution, customer insight, strategy, influence), outcome accountability over output, product strategy stack coherence, NCT goal clarity. WebSearch-grounded from ravi-mehta.com and Reforge Blog.
+- **`/julie-review`** — Julie Zhuo's lens: problem-first thinking (the three questions), intentionality as the hallmark of quality, simplicity as discipline, user outcomes before feature specs. WebSearch-grounded from The Making of a Manager and The Year of the Looking Glass.
+- **`/north-star`** — Optional, per-product metric design session. Produces a full metric tree: one North Star Metric + 3–5 inputs with causal story + guardrail metrics + operationalization table. Does not advance project state (like `/opportunity`).
+- `knowledge/frameworks/ravi-mehta-product-excellence.md` (WebSearch-grounded)
+- `knowledge/frameworks/julie-zhuo-design-leadership.md` (WebSearch-grounded)
+- `knowledge/rubrics/north-star.yaml` (5 dimensions: NSM quality, inputs, tree coherence, guardrails, operationalization)
+- Two north-star calibration artifacts (score-2, score-5)
+- Golden shape contract `tests/golden/north-star.expected.yaml`
+- 19 skills total (was 16). `setup` symlinks all three new skill dirs.
+
+---
+
 ## v0.2.0 — 2026-06-04
 
 ### Added

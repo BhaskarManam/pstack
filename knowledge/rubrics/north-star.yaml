@@ -1,0 +1,52 @@
+# Rubric for /north-star output
+# Optional, per-product metric design doc. Does NOT advance project state.
+# Passing floor: 3.5 weighted average (scale 1–5, odd scores only: 1, 3, 5)
+
+artifact_type: north_star
+passing_floor: 3.5
+
+dimensions:
+  - id: nsm_quality
+    label: "North Star Metric quality"
+    weight: 5
+    description: "Is the NSM user-facing, a leading indicator of value (not revenue/vanity), and specific enough to be unambiguous?"
+    scores:
+      1: "Revenue, DAU, or another lagging/vanity metric. No explanation of why it captures value. Could apply to any product."
+      3: "User-facing but imprecise (e.g., 'engagement'). Some rationale for why it captures value, but the connection is loose."
+      5: "Specific, user-facing, leading indicator tied to the moment of core value delivery. Clearly not gameable. Rationale explicitly connects metric to customer value, not business outcome."
+
+  - id: input_metrics
+    label: "Input metrics"
+    weight: 4
+    description: "Are 3–5 input metrics identified that product teams can directly influence, and that in aggregate drive the NSM?"
+    scores:
+      1: "Fewer than 3 inputs, or inputs that are also lagging/output metrics. No connection shown between inputs and the NSM."
+      3: "3–5 inputs present but some are lagging, or the connection to the NSM is asserted without reasoning."
+      5: "3–5 leading inputs that teams can directly influence. Each input's relationship to the NSM is explained. Together they form a coherent metric tree."
+
+  - id: metric_tree_coherence
+    label: "Metric tree coherence"
+    weight: 4
+    description: "Does the metric tree tell a logical causal story? If inputs move, can you explain why the NSM should follow?"
+    scores:
+      1: "Inputs are listed but their relationship to the NSM is unclear or contradictory."
+      3: "Causal story is implied but not explicit. Some inputs could move without affecting the NSM."
+      5: "Explicit causal chain from inputs to NSM. Missing inputs are noted. The tree is a theory of growth, not just a metric list."
+
+  - id: guardrails
+    label: "Guardrail metrics"
+    weight: 3
+    description: "Are guardrail metrics defined to detect gaming or unintended trade-offs when optimizing for the NSM or inputs?"
+    scores:
+      1: "No guardrails mentioned. Metric could be gamed with obvious tactics."
+      3: "1–2 guardrails named but not operationalized. Gaming scenarios not explored."
+      5: "2–3 guardrail metrics named with specific thresholds. At least one gaming scenario is explicitly called out and guarded against."
+
+  - id: operationalization
+    label: "Operationalization"
+    weight: 4
+    description: "Can the NSM and inputs be measured today (or near-term) with existing or clearly planned instrumentation?"
+    scores:
+      1: "No mention of measurement. Metrics require data that doesn't exist and no plan to get it."
+      3: "NSM is measurable but some inputs require new instrumentation without a plan."
+      5: "All metrics are measurable today or have a specific instrumentation plan. Baseline or benchmark noted where available."

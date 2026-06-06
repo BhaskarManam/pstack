@@ -72,16 +72,30 @@ Copy `tests/fixtures/gapped-prd.md` to `pstack-workspace/focus-timer/02-prd.md`,
 
 Expected: critique surfaces the missing success metric section. If it doesn't flag this, the rubric or critique skill needs attention.
 
-### Step 7 — Persona differentiation check
+### Step 7 — North Star eval (optional path)
+
+```
+/north-star
+```
+
+Runs on the `00-vision.md` or `01-strategy.md` context. Produces `north-star-<slug>.md`.
+Verify against `tests/golden/north-star.expected.yaml`:
+- All `required_sections` present
+- State is **unchanged** (same as before running — `/north-star` is optional, like `/opportunity`)
+- Guardrail metrics section is present with at least one threshold
+
+### Step 8 — Persona differentiation check
 
 Run on the same PRD:
 
 ```
 /cagan-review pstack-workspace/focus-timer/02-prd.md
+/ravi-review pstack-workspace/focus-timer/02-prd.md
+/julie-review pstack-workspace/focus-timer/02-prd.md
 /lenny-review pstack-workspace/focus-timer/02-prd.md
 ```
 
-Manually verify the two review files in `reviews/` are substantively different (>60% unique content).
+Manually verify the four review files in `reviews/` are substantively different (>50% unique content per pair). Ravi's review should feature a competency gap scan table. Julie's should open with the three product questions check. Cagan's should lead with four risks.
 
 ## Regression baseline
 
