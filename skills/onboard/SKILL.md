@@ -98,7 +98,7 @@ Append to `~/.config/pstack/last-session.md`:
 
 ```
 [YYYY-MM-DD] /onboard complete. Profile seeded at ~/.config/pstack/user-profile.yaml.
-Next: Phase 0b — knowledge foundation (INDEX.md, framework TL;DRs, calibration sets).
+Next: /vision to start your first product, or /pstack-help for a context-aware recommendation.
 ```
 
 ---
